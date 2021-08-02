@@ -1,190 +1,4 @@
 cdef extern from "imgui.h":
-    ctypedef enum ImGuiKey_:
-        ImGuiKey_Tab,
-        ImGuiKey_LeftArrow,
-        ImGuiKey_RightArrow,
-        ImGuiKey_UpArrow,
-        ImGuiKey_DownArrow,
-        ImGuiKey_PageUp,
-        ImGuiKey_PageDown,
-        ImGuiKey_Home,
-        ImGuiKey_End,
-        ImGuiKey_Insert,
-        ImGuiKey_Delete,
-        ImGuiKey_Backspace,
-        ImGuiKey_Space,
-        ImGuiKey_Enter,
-        ImGuiKey_Escape,
-        ImGuiKey_KeyPadEnter,
-        ImGuiKey_A,                 # for text edit CTRL+A: select all
-        ImGuiKey_C,                 # for text edit CTRL+C: copy
-        ImGuiKey_V,                 # for text edit CTRL+V: paste
-        ImGuiKey_X,                 # for text edit CTRL+X: cut
-        ImGuiKey_Y,                 # for text edit CTRL+Y: redo
-        ImGuiKey_Z,                 # for text edit CTRL+Z: undo
-        ImGuiKey_COUNT
-
-    ctypedef enum ImGuiKeyModFlags_:
-        ImGuiKeyModFlags_None       
-        ImGuiKeyModFlags_Ctrl       
-        ImGuiKeyModFlags_Shift      
-        ImGuiKeyModFlags_Alt        
-        ImGuiKeyModFlags_Super      
-
-
-    ctypedef enum ImGuiNavInput_:       
-        # Gamepad Mapping
-        ImGuiNavInput_Activate,      # activate / open / toggle / tweak value       # e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
-        ImGuiNavInput_Cancel,        # cancel / close / exit                        # e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
-        ImGuiNavInput_Input,         # text input / on-screen keyboard              # e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
-        ImGuiNavInput_Menu,          # tap: toggle menu / hold: focus, move, resize # e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
-        ImGuiNavInput_DpadLeft,      # move / tweak / resize window (w/ PadMenu)    # e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
-        ImGuiNavInput_DpadRight,     #
-        ImGuiNavInput_DpadUp,        #
-        ImGuiNavInput_DpadDown,      #
-        ImGuiNavInput_LStickLeft,    # scroll / move window (w/ PadMenu)            # e.g. Left Analog Stick Left/Right/Up/Down
-        ImGuiNavInput_LStickRight,   #
-        ImGuiNavInput_LStickUp,      #
-        ImGuiNavInput_LStickDown,    #
-        ImGuiNavInput_FocusPrev,     # next window (w/ PadMenu)                     # e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
-        ImGuiNavInput_FocusNext,     # prev window (w/ PadMenu)                     # e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
-        ImGuiNavInput_TweakSlow,     # slower tweaks                                # e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
-        ImGuiNavInput_TweakFast,     # faster tweaks                                # e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
-        ImGuiNavInput_COUNT
-
-    ctypedef enum ImGuiConfigFlags_:
-        ImGuiConfigFlags_None                   #
-        ImGuiConfigFlags_NavEnableKeyboard      # Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.KeysDown[].
-        ImGuiConfigFlags_NavEnableGamepad       # Master gamepad navigation enable flag. This is mostly to instruct your imgui backend to fill io.NavInputs[]. Backend also needs to set ImGuiBackendFlags_HasGamepad.
-        ImGuiConfigFlags_NavEnableSetMousePos   # Instruct navigation to move the mouse cursor. May be useful on TV/console systems where moving a virtual mouse is awkward. Will update io.MousePos and set io.WantSetMousePos=true. If enabled you MUST honor io.WantSetMousePos requests in your backend, otherwise ImGui will react as if the mouse is jumping around back and forth.
-        ImGuiConfigFlags_NavNoCaptureKeyboard   # Instruct navigation to not set the io.WantCaptureKeyboard flag when io.NavActive is set.
-        ImGuiConfigFlags_NoMouse                # Instruct imgui to clear mouse position/buttons in NewFrame(). This allows ignoring the mouse information set by the backend.
-        ImGuiConfigFlags_NoMouseCursorChange    # Instruct backend to not alter mouse cursor shape and visibility. Use if the backend cursor changes are interfering with yours and you don't want to use SetMouseCursor() to change mouse cursor. You may want to honor requests from imgui by reading GetMouseCursor() yourself instead.
-
-        # User storage (to allow your backend/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
-        ImGuiConfigFlags_IsSRGB                 # Application is SRGB-aware.
-        ImGuiConfigFlags_IsTouchScreen          # Application is using a touch screen instead of a mouse.
-
-    
-    ctypedef enum ImGuiBackendFlags_:
-        ImGuiBackendFlags_None                  #
-        ImGuiBackendFlags_HasGamepad            # Backend Platform supports gamepad and currently has one connected.
-        ImGuiBackendFlags_HasMouseCursors       # Backend Platform supports honoring GetMouseCursor() value to change the OS cursor shape.
-        ImGuiBackendFlags_HasSetMousePos        # Backend Platform supports io.WantSetMousePos requests to reposition the OS mouse position (only used if ImGuiConfigFlags_NavEnableSetMousePos is set).
-        ImGuiBackendFlags_RendererHasVtxOffset  # Backend Renderer supports ImDrawCmd::VtxOffset. This enables output of large meshes (64K+ vertices) while still using 16-bit indices.
-
-
-    ctypedef enum ImGuiCol_:
-        ImGuiCol_Text,
-        ImGuiCol_TextDisabled,
-        ImGuiCol_WindowBg,              # Background of normal windows
-        ImGuiCol_ChildBg,               # Background of child windows
-        ImGuiCol_PopupBg,               # Background of popups, menus, tooltips windows
-        ImGuiCol_Border,
-        ImGuiCol_BorderShadow,
-        ImGuiCol_FrameBg,               # Background of checkbox, radio button, plot, slider, text input
-        ImGuiCol_FrameBgHovered,
-        ImGuiCol_FrameBgActive,
-        ImGuiCol_TitleBg,
-        ImGuiCol_TitleBgActive,
-        ImGuiCol_TitleBgCollapsed,
-        ImGuiCol_MenuBarBg,
-        ImGuiCol_ScrollbarBg,
-        ImGuiCol_ScrollbarGrab,
-        ImGuiCol_ScrollbarGrabHovered,
-        ImGuiCol_ScrollbarGrabActive,
-        ImGuiCol_CheckMark,
-        ImGuiCol_SliderGrab,
-        ImGuiCol_SliderGrabActive,
-        ImGuiCol_Button,
-        ImGuiCol_ButtonHovered,
-        ImGuiCol_ButtonActive,
-        ImGuiCol_Header,                # Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
-        ImGuiCol_HeaderHovered,
-        ImGuiCol_HeaderActive,
-        ImGuiCol_Separator,
-        ImGuiCol_SeparatorHovered,
-        ImGuiCol_SeparatorActive,
-        ImGuiCol_ResizeGrip,
-        ImGuiCol_ResizeGripHovered,
-        ImGuiCol_ResizeGripActive,
-        ImGuiCol_Tab,
-        ImGuiCol_TabHovered,
-        ImGuiCol_TabActive,
-        ImGuiCol_TabUnfocused,
-        ImGuiCol_TabUnfocusedActive,
-        ImGuiCol_PlotLines,
-        ImGuiCol_PlotLinesHovered,
-        ImGuiCol_PlotHistogram,
-        ImGuiCol_PlotHistogramHovered,
-        ImGuiCol_TableHeaderBg,         # Table header background
-        ImGuiCol_TableBorderStrong,     # Table outer and header borders (prefer using Alpha=1.0 here)
-        ImGuiCol_TableBorderLight,      # Table inner borders (prefer using Alpha=1.0 here)
-        ImGuiCol_TableRowBg,            # Table row background (even rows)
-        ImGuiCol_TableRowBgAlt,         # Table row background (odd rows)
-        ImGuiCol_TextSelectedBg,
-        ImGuiCol_DragDropTarget,
-        ImGuiCol_NavHighlight,          # Gamepad/keyboard: current highlighted item
-        ImGuiCol_NavWindowingHighlight, # Highlight window when using CTRL+TAB
-        ImGuiCol_NavWindowingDimBg,     # Darken/colorize entire screen behind the CTRL+TAB window list, when active
-        ImGuiCol_ModalWindowDimBg,      # Darken/colorize entire screen behind a modal window, when one is active
-        ImGuiCol_COUNT
-
-
-    ctypedef enum ImGuiDataType_:
-        ImGuiDataType_S8        # signed char / char (with sensible compilers)
-        ImGuiDataType_U8        # unsigned char
-        ImGuiDataType_S16       # short
-        ImGuiDataType_U16       # unsigned short
-        ImGuiDataType_S32       # int
-        ImGuiDataType_U32       # unsigned int
-        ImGuiDataType_S64       # long long / __int64
-        ImGuiDataType_U64       # unsigned long long / unsigned __int64
-        ImGuiDataType_Float     # float
-        ImGuiDataType_Double    # double
-        ImGuiDataType_COUNT
-
-
-    ctypedef enum ImGuiStyleVar_:
-        ImGuiStyleVar_Alpha,               # float     Alpha
-        ImGuiStyleVar_WindowPadding,       # ImVec2    WindowPadding
-        ImGuiStyleVar_WindowRounding,      # float     WindowRounding
-        ImGuiStyleVar_WindowBorderSize,    # float     WindowBorderSize
-        ImGuiStyleVar_WindowMinSize,       # ImVec2    WindowMinSize
-        ImGuiStyleVar_WindowTitleAlign,    # ImVec2    WindowTitleAlign
-        ImGuiStyleVar_ChildRounding,       # float     ChildRounding
-        ImGuiStyleVar_ChildBorderSize,     # float     ChildBorderSize
-        ImGuiStyleVar_PopupRounding,       # float     PopupRounding
-        ImGuiStyleVar_PopupBorderSize,     # float     PopupBorderSize
-        ImGuiStyleVar_FramePadding,        # ImVec2    FramePadding
-        ImGuiStyleVar_FrameRounding,       # float     FrameRounding
-        ImGuiStyleVar_FrameBorderSize,     # float     FrameBorderSize
-        ImGuiStyleVar_ItemSpacing,         # ImVec2    ItemSpacing
-        ImGuiStyleVar_ItemInnerSpacing,    # ImVec2    ItemInnerSpacing
-        ImGuiStyleVar_IndentSpacing,       # float     IndentSpacing
-        ImGuiStyleVar_CellPadding,         # ImVec2    CellPadding
-        ImGuiStyleVar_ScrollbarSize,       # float     ScrollbarSize
-        ImGuiStyleVar_ScrollbarRounding,   # float     ScrollbarRounding
-        ImGuiStyleVar_GrabMinSize,         # float     GrabMinSize
-        ImGuiStyleVar_GrabRounding,        # float     GrabRounding
-        ImGuiStyleVar_TabRounding,         # float     TabRounding
-        ImGuiStyleVar_ButtonTextAlign,     # ImVec2    ButtonTextAlign
-        ImGuiStyleVar_SelectableTextAlign, # ImVec2    SelectableTextAlign
-        ImGuiStyleVar_COUNT
-    
-    ctypedef enum ImGuiButtonFlags_:
-        ImGuiButtonFlags_None                   #
-        ImGuiButtonFlags_MouseButtonLeft        # React on left mouse button (default)
-        ImGuiButtonFlags_MouseButtonRight       # React on right mouse button
-        ImGuiButtonFlags_MouseButtonMiddle      # React on center mouse button
-
-    ctypedef enum ImGuiCond_:
-        ImGuiCond_None          # No condition (always set the variable), same as _Always
-        ImGuiCond_Always        # No condition (always set the variable)
-        ImGuiCond_Once          # Set the variable once per runtime session (only the first call will succeed)
-        ImGuiCond_FirstUseEver  # Set the variable if the object/window has no persistently saved data (no entry in .ini file)
-        ImGuiCond_Appearing     # Set the variable if the object/window is appearing after being hidden/inactive (or the first time)
-
     ctypedef enum ImGuiWindowFlags_:
         ImGuiWindowFlags_None                   
         ImGuiWindowFlags_NoTitleBar              # Disable title-bar
@@ -210,56 +24,32 @@ cdef extern from "imgui.h":
         ImGuiWindowFlags_NoNav                  = ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
         ImGuiWindowFlags_NoDecoration           = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse,
         ImGuiWindowFlags_NoInputs               = ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
-
+        ImGuiWindowFlags_NoDocking
         
-    ctypedef enum ImGuiColorEditFlags_:
-        ImGuiColorEditFlags_None            #
-        ImGuiColorEditFlags_NoAlpha         #              # ColorEdit, ColorPicker, ColorButton: ignore Alpha component (will only read 3 components from the input pointer).
-        ImGuiColorEditFlags_NoPicker        #              # ColorEdit: disable picker when clicking on color square.
-        ImGuiColorEditFlags_NoOptions       #              # ColorEdit: disable toggling options menu when right-clicking on inputs/small preview.
-        ImGuiColorEditFlags_NoSmallPreview  #              # ColorEdit, ColorPicker: disable color square preview next to the inputs. (e.g. to show only the inputs)
-        ImGuiColorEditFlags_NoInputs        #              # ColorEdit, ColorPicker: disable inputs sliders/text widgets (e.g. to show only the small preview color square).
-        ImGuiColorEditFlags_NoTooltip       #              # ColorEdit, ColorPicker, ColorButton: disable tooltip when hovering the preview.
-        ImGuiColorEditFlags_NoLabel         #              # ColorEdit, ColorPicker: disable display of inline text label (the label is still forwarded to the tooltip and picker).
-        ImGuiColorEditFlags_NoSidePreview   #              # ColorPicker: disable bigger color preview on right side of the picker, use small color square preview instead.
-        ImGuiColorEditFlags_NoDragDrop      #              # ColorEdit: disable drag and drop target. ColorButton: disable drag and drop source.
-        ImGuiColorEditFlags_NoBorder        #              # ColorButton: disable border (which is enforced by default)
-
-        # User Options (right-click on widget to change some of them).
-        ImGuiColorEditFlags_AlphaBar        #              # ColorEdit, ColorPicker: show vertical alpha bar/gradient in picker.
-        ImGuiColorEditFlags_AlphaPreview    #              # ColorEdit, ColorPicker, ColorButton: display preview as a transparent color over a checkerboard, instead of opaque.
-        ImGuiColorEditFlags_AlphaPreviewHalf#              # ColorEdit, ColorPicker, ColorButton: display half opaque / half checkerboard, instead of opaque.
-        ImGuiColorEditFlags_HDR             #              # (WIP) ColorEdit: Currently only disable 0.0f..1.0f limits in RGBA edition (note: you probably want to use ImGuiColorEditFlags_Float flag as well).
-        ImGuiColorEditFlags_DisplayRGB      # [Display]    # ColorEdit: override _display_ type among RGB/HSV/Hex. ColorPicker: select any combination using one or more of RGB/HSV/Hex.
-        ImGuiColorEditFlags_DisplayHSV      # [Display]    # "
-        ImGuiColorEditFlags_DisplayHex      # [Display]    # "
-        ImGuiColorEditFlags_Uint8           # [DataType]   # ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0..255.
-        ImGuiColorEditFlags_Float           # [DataType]   # ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0.0f..1.0f floats instead of 0..255 integers. No round-trip of value via integers.
-        ImGuiColorEditFlags_PickerHueBar    # [Picker]     # ColorPicker: bar for Hue, rectangle for Sat/Value.
-        ImGuiColorEditFlags_PickerHueWheel  # [Picker]     # ColorPicker: wheel for Hue, triangle for Sat/Value.
-        ImGuiColorEditFlags_InputRGB        # [Input]      # ColorEdit, ColorPicker: input and output data in RGB format.
-        ImGuiColorEditFlags_InputHSV        # [Input]      # ColorEdit, ColorPicker: input and output data in HSV format.
-
-        # Defaults Options. You can set application defaults using SetColorEditOptions(). The intent is that you probably don't want to
-        # override them in most of your calls. Let the user choose via the option menu and/or call SetColorEditOptions() once during startup.
-        ImGuiColorEditFlags__OptionsDefault = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar,
-
-
-    ctypedef enum ImGuiSliderFlags_:
-        ImGuiSliderFlags_None                   #
-        ImGuiSliderFlags_AlwaysClamp            # Clamp value to min/max bounds when input manually with CTRL+Click. By default CTRL+Click allows going out of bounds.
-        ImGuiSliderFlags_Logarithmic            # Make the widget logarithmic (linear otherwise). Consider using ImGuiSliderFlags_NoRoundToFormat with this if using a format-string with small amount of digits.
-        ImGuiSliderFlags_NoRoundToFormat        # Disable rounding underlying value to match precision of the display format string (e.g. %.3f values are rounded to those 3 digits)
-        ImGuiSliderFlags_NoInput                # Disable CTRL+Click or Enter key allowing to input text directly into the widget
+    ctypedef enum ImGuiInputTextFlags_:
+        ImGuiInputTextFlags_None                #
+        ImGuiInputTextFlags_CharsDecimal        # Allow 0123456789.+-*/
+        ImGuiInputTextFlags_CharsHexadecimal    # Allow 0123456789ABCDEFabcdef
+        ImGuiInputTextFlags_CharsUppercase      # Turn a..z into A..Z
+        ImGuiInputTextFlags_CharsNoBlank        # Filter out spaces, tabs
+        ImGuiInputTextFlags_AutoSelectAll       # Select entire text when first taking mouse focus
+        ImGuiInputTextFlags_EnterReturnsTrue    # Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider looking at the IsItemDeactivatedAfterEdit() function.
+        ImGuiInputTextFlags_CallbackCompletion  # Callback on pressing TAB (for completion handling)
+        ImGuiInputTextFlags_CallbackHistory     # Callback on pressing Up/Down arrows (for history handling)
+        ImGuiInputTextFlags_CallbackAlways      # Callback on each iteration. User code may query cursor position, modify text buffer.
+        ImGuiInputTextFlags_CallbackCharFilter  # Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
+        ImGuiInputTextFlags_AllowTabInput       # Pressing TAB input a '\t' character into the text field
+        ImGuiInputTextFlags_CtrlEnterForNewLine # In multi-line mode, unfocus with Enter, add new line with Ctrl+Enter (default is opposite: unfocus with Ctrl+Enter, add line with Enter).
+        ImGuiInputTextFlags_NoHorizontalScroll  # Disable following the cursor horizontally
+        ImGuiInputTextFlags_AlwaysOverwrite     # Overwrite mode
+        ImGuiInputTextFlags_AlwaysInsertMode    # OBSOLETED in 1.82
+        ImGuiInputTextFlags_ReadOnly            # Read-only mode
+        ImGuiInputTextFlags_Password            # Password mode, display all characters as '*'
+        ImGuiInputTextFlags_NoUndoRedo          # Disable undo/redo. Note that input text owns the text data while active, if you want to provide your own undo/redo stack you need e.g. to call ClearActiveID().
+        ImGuiInputTextFlags_CharsScientific     # Allow 0123456789.+-*/eE (Scientific notation input)
+        ImGuiInputTextFlags_CallbackResize      # Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
+        ImGuiInputTextFlags_CallbackEdit        # Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
         
-        
-    ctypedef enum ImGuiMouseButton_:
-        ImGuiMouseButton_Left 
-        ImGuiMouseButton_Right 
-        ImGuiMouseButton_Middle
-        ImGuiMouseButton_COUNT 
-
-
     ctypedef enum ImGuiTreeNodeFlags_:
         ImGuiTreeNodeFlags_None                 
         ImGuiTreeNodeFlags_Selected             # Draw as selected
@@ -279,7 +69,6 @@ cdef extern from "imgui.h":
         # ImGuiTreeNodeFlags_NoScrollOnOpen     # FIXME: TODO: Disable automatic scroll on TreePop() if node got just open and contents is not visible
         ImGuiTreeNodeFlags_CollapsingHeader     = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog
 
-        
     ctypedef enum ImGuiPopupFlags_:    
         ImGuiPopupFlags_None                    #
         ImGuiPopupFlags_MouseButtonLeft         # For BeginPopupContext*(): open on Left Mouse release. Guaranteed to always be == 0 (same as ImGuiMouseButton_Left)
@@ -293,7 +82,6 @@ cdef extern from "imgui.h":
         ImGuiPopupFlags_AnyPopupLevel           # For IsPopupOpen(): search/test at any level of the popup stack (default test in the current level)
         ImGuiPopupFlags_AnyPopup                = ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel
 
-    
     ctypedef enum ImGuiSelectableFlags_:
         ImGuiSelectableFlags_None               
         ImGuiSelectableFlags_DontClosePopups    # Clicking this don't close parent popup window
@@ -301,7 +89,6 @@ cdef extern from "imgui.h":
         ImGuiSelectableFlags_AllowDoubleClick   # Generate press events on double clicks too
         ImGuiSelectableFlags_Disabled           # Cannot be selected, display grayed out text
         ImGuiSelectableFlags_AllowItemOverlap   # (WIP) Hit testing to allow subsequent widgets to overlap this one
-
 
     ctypedef enum ImGuiComboFlags_:
         ImGuiComboFlags_None                    
@@ -314,7 +101,6 @@ cdef extern from "imgui.h":
         ImGuiComboFlags_NoPreview               # Display only a square arrow button
         ImGuiComboFlags_HeightMask_             = ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest
 
-    
     ctypedef enum ImGuiTabBarFlags_:
         ImGuiTabBarFlags_None                           #
         ImGuiTabBarFlags_Reorderable                    # Allow manually dragging tabs to re-order them + New tabs are appended at the end of list
@@ -328,7 +114,6 @@ cdef extern from "imgui.h":
         ImGuiTabBarFlags_FittingPolicyMask_             = ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll
         ImGuiTabBarFlags_FittingPolicyDefault_          = ImGuiTabBarFlags_FittingPolicyResizeDown
 
-        
     ctypedef enum ImGuiTabItemFlags_:
         ImGuiTabItemFlags_None                          #
         ImGuiTabItemFlags_UnsavedDocument               # Append '*' to title without affecting the ID, as a convenience to avoid using the ### operator. Also: tab is selected on closure and closure is deferred by one frame to allow code to undo it without flicker.
@@ -422,14 +207,12 @@ cdef extern from "imgui.h":
         ImGuiTableBgTarget_RowBg1                       # Set row background color 1 (generally used for selection marking)
         ImGuiTableBgTarget_CellBg                       # Set cell background color (top-most color)
 
-    
     ctypedef enum ImGuiFocusedFlags_:
         ImGuiFocusedFlags_None                          #
         ImGuiFocusedFlags_ChildWindows                  # IsWindowFocused(): Return true if any children of the window is focused
         ImGuiFocusedFlags_RootWindow                    # IsWindowFocused(): Test from root window (top most parent of the current hierarchy)
         ImGuiFocusedFlags_AnyWindow                     # IsWindowFocused(): Return true if any window is focused. Important: If you are trying to tell how to dispatch your low-level inputs, do NOT use this. Use 'io.WantCaptureMouse' instead! Please read the FAQ!
         ImGuiFocusedFlags_RootAndChildWindows           = ImGuiFocusedFlags_RootWindow | ImGuiFocusedFlags_ChildWindows
-
 
     ctypedef enum ImGuiHoveredFlags_:
         ImGuiHoveredFlags_None                          # Return true if directly over the item/window, not obstructed by another window, not obstructed by an active popup or modal blocking inputs under them.
@@ -444,6 +227,14 @@ cdef extern from "imgui.h":
         ImGuiHoveredFlags_RectOnly                      = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped,
         ImGuiHoveredFlags_RootAndChildWindows           = ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows
 
+    ctypedef enum ImGuiDockNodeFlags_:
+        ImGuiDockNodeFlags_None
+        ImGuiDockNodeFlags_KeepAliveOnly
+        ImGuiDockNodeFlags_NoDockingInCentralNode
+        ImGuiDockNodeFlags_PassthruCentralNode
+        ImGuiDockNodeFlags_NoSplit
+        ImGuiDockNodeFlags_NoResize
+        ImGuiDockNodeFlags_AutoHideTabBar
 
     ctypedef enum ImGuiDragDropFlags_:
         ImGuiDragDropFlags_None                         
@@ -460,6 +251,20 @@ cdef extern from "imgui.h":
         ImGuiDragDropFlags_AcceptNoPreviewTooltip       # Request hiding the BeginDragDropSource tooltip from the BeginDragDropTarget site.
         ImGuiDragDropFlags_AcceptPeekOnly               = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect  # For peeking ahead and inspecting the payload before delivery.
   
+
+    ctypedef enum ImGuiDataType_:
+        ImGuiDataType_S8        # signed char / char (with sensible compilers)
+        ImGuiDataType_U8        # unsigned char
+        ImGuiDataType_S16       # short
+        ImGuiDataType_U16       # unsigned short
+        ImGuiDataType_S32       # int
+        ImGuiDataType_U32       # unsigned int
+        ImGuiDataType_S64       # long long / __int64
+        ImGuiDataType_U64       # unsigned long long / unsigned __int64
+        ImGuiDataType_Float     # float
+        ImGuiDataType_Double    # double
+        ImGuiDataType_COUNT
+
     ctypedef enum ImGuiDir_:
         ImGuiDir_None   
         ImGuiDir_Left   
@@ -467,11 +272,238 @@ cdef extern from "imgui.h":
         ImGuiDir_Up     
         ImGuiDir_Down   
         ImGuiDir_COUNT
-    
+
     ctypedef enum ImGuiSortDirection_:
         ImGuiSortDirection_None         #
         ImGuiSortDirection_Ascending    # Ascending = 0->9, A->Z etc.
         ImGuiSortDirection_Descending   # Descending = 9->0, Z->A etc.
+
+
+    ctypedef enum ImGuiKey_:
+        ImGuiKey_Tab,
+        ImGuiKey_LeftArrow,
+        ImGuiKey_RightArrow,
+        ImGuiKey_UpArrow,
+        ImGuiKey_DownArrow,
+        ImGuiKey_PageUp,
+        ImGuiKey_PageDown,
+        ImGuiKey_Home,
+        ImGuiKey_End,
+        ImGuiKey_Insert,
+        ImGuiKey_Delete,
+        ImGuiKey_Backspace,
+        ImGuiKey_Space,
+        ImGuiKey_Enter,
+        ImGuiKey_Escape,
+        ImGuiKey_KeyPadEnter,
+        ImGuiKey_A,                 # for text edit CTRL+A: select all
+        ImGuiKey_C,                 # for text edit CTRL+C: copy
+        ImGuiKey_V,                 # for text edit CTRL+V: paste
+        ImGuiKey_X,                 # for text edit CTRL+X: cut
+        ImGuiKey_Y,                 # for text edit CTRL+Y: redo
+        ImGuiKey_Z,                 # for text edit CTRL+Z: undo
+        ImGuiKey_COUNT
+
+    ctypedef enum ImGuiKeyModFlags_:
+        ImGuiKeyModFlags_None       
+        ImGuiKeyModFlags_Ctrl       
+        ImGuiKeyModFlags_Shift      
+        ImGuiKeyModFlags_Alt        
+        ImGuiKeyModFlags_Super      
+
+
+    ctypedef enum ImGuiNavInput_:       
+        # Gamepad Mapping
+        ImGuiNavInput_Activate,      # activate / open / toggle / tweak value       # e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
+        ImGuiNavInput_Cancel,        # cancel / close / exit                        # e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
+        ImGuiNavInput_Input,         # text input / on-screen keyboard              # e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
+        ImGuiNavInput_Menu,          # tap: toggle menu / hold: focus, move, resize # e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
+        ImGuiNavInput_DpadLeft,      # move / tweak / resize window (w/ PadMenu)    # e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
+        ImGuiNavInput_DpadRight,     #
+        ImGuiNavInput_DpadUp,        #
+        ImGuiNavInput_DpadDown,      #
+        ImGuiNavInput_LStickLeft,    # scroll / move window (w/ PadMenu)            # e.g. Left Analog Stick Left/Right/Up/Down
+        ImGuiNavInput_LStickRight,   #
+        ImGuiNavInput_LStickUp,      #
+        ImGuiNavInput_LStickDown,    #
+        ImGuiNavInput_FocusPrev,     # next window (w/ PadMenu)                     # e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+        ImGuiNavInput_FocusNext,     # prev window (w/ PadMenu)                     # e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+        ImGuiNavInput_TweakSlow,     # slower tweaks                                # e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+        ImGuiNavInput_TweakFast,     # faster tweaks                                # e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+        ImGuiNavInput_COUNT
+
+    ctypedef enum ImGuiConfigFlags_: 
+        ImGuiConfigFlags_None                   #
+        ImGuiConfigFlags_NavEnableKeyboard      # Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.KeysDown[].
+        ImGuiConfigFlags_NavEnableGamepad       # Master gamepad navigation enable flag. This is mostly to instruct your imgui backend to fill io.NavInputs[]. Backend also needs to set ImGuiBackendFlags_HasGamepad.
+        ImGuiConfigFlags_NavEnableSetMousePos   # Instruct navigation to move the mouse cursor. May be useful on TV/console systems where moving a virtual mouse is awkward. Will update io.MousePos and set io.WantSetMousePos=true. If enabled you MUST honor io.WantSetMousePos requests in your backend, otherwise ImGui will react as if the mouse is jumping around back and forth.
+        ImGuiConfigFlags_NavNoCaptureKeyboard   # Instruct navigation to not set the io.WantCaptureKeyboard flag when io.NavActive is set.
+        ImGuiConfigFlags_NoMouse                # Instruct imgui to clear mouse position/buttons in NewFrame(). This allows ignoring the mouse information set by the backend.
+        ImGuiConfigFlags_NoMouseCursorChange    # Instruct backend to not alter mouse cursor shape and visibility. Use if the backend cursor changes are interfering with yours and you don't want to use SetMouseCursor() to change mouse cursor. You may want to honor requests from imgui by reading GetMouseCursor() yourself instead.
+
+        # User storage (to allow your backend/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
+        ImGuiConfigFlags_IsSRGB                 # Application is SRGB-aware.
+        ImGuiConfigFlags_IsTouchScreen          # Application is using a touch screen instead of a mouse.
+
+        # Docking [BETA]
+        ImGuiConfigFlags_DockingEnable
+
+        # Viewports [BETA]
+        ImGuiConfigFlags_ViewportsEnable
+        ImGuiConfigFlags_DpiEnableScaleViewports
+        ImGuiConfigFlags_DpiEnableScaleFonts 
+    
+    ctypedef enum ImGuiBackendFlags_:
+        ImGuiBackendFlags_None                  #
+        ImGuiBackendFlags_HasGamepad            # Backend Platform supports gamepad and currently has one connected.
+        ImGuiBackendFlags_HasMouseCursors       # Backend Platform supports honoring GetMouseCursor() value to change the OS cursor shape.
+        ImGuiBackendFlags_HasSetMousePos        # Backend Platform supports io.WantSetMousePos requests to reposition the OS mouse position (only used if ImGuiConfigFlags_NavEnableSetMousePos is set).
+        ImGuiBackendFlags_RendererHasVtxOffset  # Backend Renderer supports ImDrawCmd::VtxOffset. This enables output of large meshes (64K+ vertices) while still using 16-bit indices.
+
+        # Viewports [BETA]
+        ImGuiBackendFlags_PlatformHasViewports
+        ImGuiBackendFlags_HasMouseHoveredViewport
+        ImGuiBackendFlags_RendererHasViewports
+
+    ctypedef enum ImGuiCol_:
+        ImGuiCol_Text,
+        ImGuiCol_TextDisabled,
+        ImGuiCol_WindowBg,              # Background of normal windows
+        ImGuiCol_ChildBg,               # Background of child windows
+        ImGuiCol_PopupBg,               # Background of popups, menus, tooltips windows
+        ImGuiCol_Border,
+        ImGuiCol_BorderShadow,
+        ImGuiCol_FrameBg,               # Background of checkbox, radio button, plot, slider, text input
+        ImGuiCol_FrameBgHovered,
+        ImGuiCol_FrameBgActive,
+        ImGuiCol_TitleBg,
+        ImGuiCol_TitleBgActive,
+        ImGuiCol_TitleBgCollapsed,
+        ImGuiCol_MenuBarBg,
+        ImGuiCol_ScrollbarBg,
+        ImGuiCol_ScrollbarGrab,
+        ImGuiCol_ScrollbarGrabHovered,
+        ImGuiCol_ScrollbarGrabActive,
+        ImGuiCol_CheckMark,
+        ImGuiCol_SliderGrab,
+        ImGuiCol_SliderGrabActive,
+        ImGuiCol_Button,
+        ImGuiCol_ButtonHovered,
+        ImGuiCol_ButtonActive,
+        ImGuiCol_Header,                # Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
+        ImGuiCol_HeaderHovered,
+        ImGuiCol_HeaderActive,
+        ImGuiCol_Separator,
+        ImGuiCol_SeparatorHovered,
+        ImGuiCol_SeparatorActive,
+        ImGuiCol_ResizeGrip,
+        ImGuiCol_ResizeGripHovered,
+        ImGuiCol_ResizeGripActive,
+        ImGuiCol_Tab,
+        ImGuiCol_TabHovered,
+        ImGuiCol_TabActive,
+        ImGuiCol_TabUnfocused,
+        ImGuiCol_TabUnfocusedActive,
+        ImGuiCol_DockingPreview,
+        ImGuiCol_DockingEmptyBg,
+        ImGuiCol_PlotLines,
+        ImGuiCol_PlotLinesHovered,
+        ImGuiCol_PlotHistogram,
+        ImGuiCol_PlotHistogramHovered,
+        ImGuiCol_TableHeaderBg,         # Table header background
+        ImGuiCol_TableBorderStrong,     # Table outer and header borders (prefer using Alpha=1.0 here)
+        ImGuiCol_TableBorderLight,      # Table inner borders (prefer using Alpha=1.0 here)
+        ImGuiCol_TableRowBg,            # Table row background (even rows)
+        ImGuiCol_TableRowBgAlt,         # Table row background (odd rows)
+        ImGuiCol_TextSelectedBg,
+        ImGuiCol_DragDropTarget,
+        ImGuiCol_NavHighlight,          # Gamepad/keyboard: current highlighted item
+        ImGuiCol_NavWindowingHighlight, # Highlight window when using CTRL+TAB
+        ImGuiCol_NavWindowingDimBg,     # Darken/colorize entire screen behind the CTRL+TAB window list, when active
+        ImGuiCol_ModalWindowDimBg,      # Darken/colorize entire screen behind a modal window, when one is active
+        ImGuiCol_COUNT
+
+
+    ctypedef enum ImGuiStyleVar_:
+        ImGuiStyleVar_Alpha,               # float     Alpha
+        ImGuiStyleVar_WindowPadding,       # ImVec2    WindowPadding
+        ImGuiStyleVar_WindowRounding,      # float     WindowRounding
+        ImGuiStyleVar_WindowBorderSize,    # float     WindowBorderSize
+        ImGuiStyleVar_WindowMinSize,       # ImVec2    WindowMinSize
+        ImGuiStyleVar_WindowTitleAlign,    # ImVec2    WindowTitleAlign
+        ImGuiStyleVar_ChildRounding,       # float     ChildRounding
+        ImGuiStyleVar_ChildBorderSize,     # float     ChildBorderSize
+        ImGuiStyleVar_PopupRounding,       # float     PopupRounding
+        ImGuiStyleVar_PopupBorderSize,     # float     PopupBorderSize
+        ImGuiStyleVar_FramePadding,        # ImVec2    FramePadding
+        ImGuiStyleVar_FrameRounding,       # float     FrameRounding
+        ImGuiStyleVar_FrameBorderSize,     # float     FrameBorderSize
+        ImGuiStyleVar_ItemSpacing,         # ImVec2    ItemSpacing
+        ImGuiStyleVar_ItemInnerSpacing,    # ImVec2    ItemInnerSpacing
+        ImGuiStyleVar_IndentSpacing,       # float     IndentSpacing
+        ImGuiStyleVar_CellPadding,         # ImVec2    CellPadding
+        ImGuiStyleVar_ScrollbarSize,       # float     ScrollbarSize
+        ImGuiStyleVar_ScrollbarRounding,   # float     ScrollbarRounding
+        ImGuiStyleVar_GrabMinSize,         # float     GrabMinSize
+        ImGuiStyleVar_GrabRounding,        # float     GrabRounding
+        ImGuiStyleVar_TabRounding,         # float     TabRounding
+        ImGuiStyleVar_ButtonTextAlign,     # ImVec2    ButtonTextAlign
+        ImGuiStyleVar_SelectableTextAlign, # ImVec2    SelectableTextAlign
+        ImGuiStyleVar_COUNT
+    
+    ctypedef enum ImGuiButtonFlags_:
+        ImGuiButtonFlags_None                   #
+        ImGuiButtonFlags_MouseButtonLeft        # React on left mouse button (default)
+        ImGuiButtonFlags_MouseButtonRight       # React on right mouse button
+        ImGuiButtonFlags_MouseButtonMiddle      # React on center mouse button
+
+
+    ctypedef enum ImGuiColorEditFlags_:
+        ImGuiColorEditFlags_None            #
+        ImGuiColorEditFlags_NoAlpha         #              # ColorEdit, ColorPicker, ColorButton: ignore Alpha component (will only read 3 components from the input pointer).
+        ImGuiColorEditFlags_NoPicker        #              # ColorEdit: disable picker when clicking on color square.
+        ImGuiColorEditFlags_NoOptions       #              # ColorEdit: disable toggling options menu when right-clicking on inputs/small preview.
+        ImGuiColorEditFlags_NoSmallPreview  #              # ColorEdit, ColorPicker: disable color square preview next to the inputs. (e.g. to show only the inputs)
+        ImGuiColorEditFlags_NoInputs        #              # ColorEdit, ColorPicker: disable inputs sliders/text widgets (e.g. to show only the small preview color square).
+        ImGuiColorEditFlags_NoTooltip       #              # ColorEdit, ColorPicker, ColorButton: disable tooltip when hovering the preview.
+        ImGuiColorEditFlags_NoLabel         #              # ColorEdit, ColorPicker: disable display of inline text label (the label is still forwarded to the tooltip and picker).
+        ImGuiColorEditFlags_NoSidePreview   #              # ColorPicker: disable bigger color preview on right side of the picker, use small color square preview instead.
+        ImGuiColorEditFlags_NoDragDrop      #              # ColorEdit: disable drag and drop target. ColorButton: disable drag and drop source.
+        ImGuiColorEditFlags_NoBorder        #              # ColorButton: disable border (which is enforced by default)
+
+        # User Options (right-click on widget to change some of them).
+        ImGuiColorEditFlags_AlphaBar        #              # ColorEdit, ColorPicker: show vertical alpha bar/gradient in picker.
+        ImGuiColorEditFlags_AlphaPreview    #              # ColorEdit, ColorPicker, ColorButton: display preview as a transparent color over a checkerboard, instead of opaque.
+        ImGuiColorEditFlags_AlphaPreviewHalf#              # ColorEdit, ColorPicker, ColorButton: display half opaque / half checkerboard, instead of opaque.
+        ImGuiColorEditFlags_HDR             #              # (WIP) ColorEdit: Currently only disable 0.0f..1.0f limits in RGBA edition (note: you probably want to use ImGuiColorEditFlags_Float flag as well).
+        ImGuiColorEditFlags_DisplayRGB      # [Display]    # ColorEdit: override _display_ type among RGB/HSV/Hex. ColorPicker: select any combination using one or more of RGB/HSV/Hex.
+        ImGuiColorEditFlags_DisplayHSV      # [Display]    # "
+        ImGuiColorEditFlags_DisplayHex      # [Display]    # "
+        ImGuiColorEditFlags_Uint8           # [DataType]   # ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0..255.
+        ImGuiColorEditFlags_Float           # [DataType]   # ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0.0f..1.0f floats instead of 0..255 integers. No round-trip of value via integers.
+        ImGuiColorEditFlags_PickerHueBar    # [Picker]     # ColorPicker: bar for Hue, rectangle for Sat/Value.
+        ImGuiColorEditFlags_PickerHueWheel  # [Picker]     # ColorPicker: wheel for Hue, triangle for Sat/Value.
+        ImGuiColorEditFlags_InputRGB        # [Input]      # ColorEdit, ColorPicker: input and output data in RGB format.
+        ImGuiColorEditFlags_InputHSV        # [Input]      # ColorEdit, ColorPicker: input and output data in HSV format.
+
+        # Defaults Options. You can set application defaults using SetColorEditOptions(). The intent is that you probably don't want to
+        # override them in most of your calls. Let the user choose via the option menu and/or call SetColorEditOptions() once during startup.
+        ImGuiColorEditFlags__OptionsDefault = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar,
+
+
+    ctypedef enum ImGuiSliderFlags_:
+        ImGuiSliderFlags_None                   #
+        ImGuiSliderFlags_AlwaysClamp            # Clamp value to min/max bounds when input manually with CTRL+Click. By default CTRL+Click allows going out of bounds.
+        ImGuiSliderFlags_Logarithmic            # Make the widget logarithmic (linear otherwise). Consider using ImGuiSliderFlags_NoRoundToFormat with this if using a format-string with small amount of digits.
+        ImGuiSliderFlags_NoRoundToFormat        # Disable rounding underlying value to match precision of the display format string (e.g. %.3f values are rounded to those 3 digits)
+        ImGuiSliderFlags_NoInput                # Disable CTRL+Click or Enter key allowing to input text directly into the widget
+        
+        
+    ctypedef enum ImGuiMouseButton_:
+        ImGuiMouseButton_Left 
+        ImGuiMouseButton_Right 
+        ImGuiMouseButton_Middle
+        ImGuiMouseButton_COUNT 
 
     ctypedef enum ImGuiMouseCursor_:
         ImGuiMouseCursor_None 
@@ -486,30 +518,14 @@ cdef extern from "imgui.h":
         ImGuiMouseCursor_NotAllowed,        # When hovering something with disallowed interaction. Usually a crossed circle.
         ImGuiMouseCursor_COUNT
 
-    ctypedef enum ImGuiInputTextFlags_:
-        ImGuiInputTextFlags_None                #
-        ImGuiInputTextFlags_CharsDecimal        # Allow 0123456789.+-*/
-        ImGuiInputTextFlags_CharsHexadecimal    # Allow 0123456789ABCDEFabcdef
-        ImGuiInputTextFlags_CharsUppercase      # Turn a..z into A..Z
-        ImGuiInputTextFlags_CharsNoBlank        # Filter out spaces, tabs
-        ImGuiInputTextFlags_AutoSelectAll       # Select entire text when first taking mouse focus
-        ImGuiInputTextFlags_EnterReturnsTrue    # Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider looking at the IsItemDeactivatedAfterEdit() function.
-        ImGuiInputTextFlags_CallbackCompletion  # Callback on pressing TAB (for completion handling)
-        ImGuiInputTextFlags_CallbackHistory     # Callback on pressing Up/Down arrows (for history handling)
-        ImGuiInputTextFlags_CallbackAlways      # Callback on each iteration. User code may query cursor position, modify text buffer.
-        ImGuiInputTextFlags_CallbackCharFilter  # Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
-        ImGuiInputTextFlags_AllowTabInput       # Pressing TAB input a '\t' character into the text field
-        ImGuiInputTextFlags_CtrlEnterForNewLine # In multi-line mode, unfocus with Enter, add new line with Ctrl+Enter (default is opposite: unfocus with Ctrl+Enter, add line with Enter).
-        ImGuiInputTextFlags_NoHorizontalScroll  # Disable following the cursor horizontally
-        ImGuiInputTextFlags_AlwaysOverwrite     # Overwrite mode
-        ImGuiInputTextFlags_AlwaysInsertMode    # OBSOLETED in 1.82
-        ImGuiInputTextFlags_ReadOnly            # Read-only mode
-        ImGuiInputTextFlags_Password            # Password mode, display all characters as '*'
-        ImGuiInputTextFlags_NoUndoRedo          # Disable undo/redo. Note that input text owns the text data while active, if you want to provide your own undo/redo stack you need e.g. to call ClearActiveID().
-        ImGuiInputTextFlags_CharsScientific     # Allow 0123456789.+-*/eE (Scientific notation input)
-        ImGuiInputTextFlags_CallbackResize      # Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
-        ImGuiInputTextFlags_CallbackEdit        # Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
-        
+    ctypedef enum ImGuiCond_:
+        ImGuiCond_None          # No condition (always set the variable), same as _Always
+        ImGuiCond_Always        # No condition (always set the variable)
+        ImGuiCond_Once          # Set the variable once per runtime session (only the first call will succeed)
+        ImGuiCond_FirstUseEver  # Set the variable if the object/window has no persistently saved data (no entry in .ini file)
+        ImGuiCond_Appearing     # Set the variable if the object/window is appearing after being hidden/inactive (or the first time)
+     
+
     # OBSOLETED in 1.82 (from Mars 2021) -> use ImDrawFlags_
     ctypedef enum ImDrawCornerFlags_:
         ImDrawCornerFlags_None      #
@@ -558,4 +574,13 @@ cdef extern from "imgui.h":
         ImGuiViewportFlags_IsPlatformWindow         # Represent a Platform Window
         ImGuiViewportFlags_IsPlatformMonitor        # Represent a Platform Monitor (unused yet)
         ImGuiViewportFlags_OwnedByApp               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
-        
+        ImGuiViewportFlags_NoDecoration
+        ImGuiViewportFlags_NoTaskBarIcon
+        ImGuiViewportFlags_NoFocusOnAppearing
+        ImGuiViewportFlags_NoFocusOnClick
+        ImGuiViewportFlags_NoInputs
+        ImGuiViewportFlags_NoRendererClear
+        ImGuiViewportFlags_TopMost
+        ImGuiViewportFlags_Minimized
+        ImGuiViewportFlags_NoAutoMerge
+        ImGuiViewportFlags_CanHostOtherWindows

@@ -44,95 +44,6 @@ DEF TARGET_IMGUI_VERSION = (1, 79)
 
 cdef unsigned short* _LATIN_ALL = [0x0020, 0x024F , 0]
 
-# ==== Condition enum redefines ====
-NONE = enums.ImGuiCond_None
-ALWAYS = enums.ImGuiCond_Always
-ONCE = enums.ImGuiCond_Once
-FIRST_USE_EVER = enums.ImGuiCond_FirstUseEver
-APPEARING = enums.ImGuiCond_Appearing
-
-# ==== Style var enum redefines ====
-STYLE_ALPHA = enums.ImGuiStyleVar_Alpha # float
-STYLE_WINDOW_PADDING = enums.ImGuiStyleVar_WindowPadding  # Vec2
-STYLE_WINDOW_ROUNDING = enums.ImGuiStyleVar_WindowRounding  # float
-STYLE_WINDOW_BORDERSIZE = enums.ImGuiStyleVar_WindowBorderSize  # float
-STYLE_WINDOW_MIN_SIZE = enums.ImGuiStyleVar_WindowMinSize  # Vec2
-STYLE_WINDOW_TITLE_ALIGN = enums.ImGuiStyleVar_WindowTitleAlign  # Vec2
-STYLE_CHILD_ROUNDING = enums.ImGuiStyleVar_ChildRounding  # float
-STYLE_CHILD_BORDERSIZE = enums.ImGuiStyleVar_ChildBorderSize  # float
-STYLE_POPUP_ROUNDING = enums.ImGuiStyleVar_PopupRounding  # float
-STYLE_POPUP_BORDERSIZE = enums.ImGuiStyleVar_PopupBorderSize  # float
-STYLE_FRAME_PADDING = enums.ImGuiStyleVar_FramePadding # Vec2
-STYLE_FRAME_ROUNDING = enums.ImGuiStyleVar_FrameRounding # float
-STYLE_FRAME_BORDERSIZE = enums.ImGuiStyleVar_FrameBorderSize  # float
-STYLE_ITEM_SPACING = enums.ImGuiStyleVar_ItemSpacing # Vec2
-STYLE_ITEM_INNER_SPACING = enums.ImGuiStyleVar_ItemInnerSpacing # Vec2
-STYLE_INDENT_SPACING = enums.ImGuiStyleVar_IndentSpacing # float
-STYLE_CELL_PADDING = enums.ImGuiStyleVar_CellPadding # ImVec2    CellPadding
-STYLE_SCROLLBAR_SIZE = enums.ImGuiStyleVar_ScrollbarSize # float
-STYLE_SCROLLBAR_ROUNDING = enums.ImGuiStyleVar_ScrollbarRounding # float
-STYLE_GRAB_MIN_SIZE = enums.ImGuiStyleVar_GrabMinSize # float
-STYLE_GRAB_ROUNDING = enums.ImGuiStyleVar_GrabRounding # float
-STYLE_TAB_ROUNDING = enums.ImGuiStyleVar_TabRounding # flot
-STYLE_BUTTON_TEXT_ALIGN = enums.ImGuiStyleVar_ButtonTextAlign # Vec2
-STYLE_SELECTABLE_TEXT_ALIGN = enums.ImGuiStyleVar_SelectableTextAlign # Vec2
-
-# ==== Button Flags ====
-BUTTON_NONE = enums.ImGuiButtonFlags_None                   
-BUTTON_MOUSE_BUTTON_LEFT = enums.ImGuiButtonFlags_MouseButtonLeft        
-BUTTON_MOUSE_BUTTON_RIGHT = enums.ImGuiButtonFlags_MouseButtonRight       
-BUTTON_MOUSE_BUTTON_MIDDLE = enums.ImGuiButtonFlags_MouseButtonMiddle      
-
-# ==== Key map enum redefines ====
-KEY_TAB = enums.ImGuiKey_Tab                 # for tabbing through fields
-KEY_LEFT_ARROW = enums.ImGuiKey_LeftArrow    # for text edit
-KEY_RIGHT_ARROW = enums.ImGuiKey_RightArrow  # for text edit
-KEY_UP_ARROW = enums.ImGuiKey_UpArrow        # for text edit
-KEY_DOWN_ARROW = enums.ImGuiKey_DownArrow    # for text edit
-KEY_PAGE_UP = enums.ImGuiKey_PageUp
-KEY_PAGE_DOWN = enums.ImGuiKey_PageDown
-KEY_HOME = enums.ImGuiKey_Home               # for text edit
-KEY_END = enums.ImGuiKey_End                 # for text edit
-KEY_INSERT = enums.ImGuiKey_Insert           # for text edit
-KEY_DELETE = enums.ImGuiKey_Delete           # for text edit
-KEY_BACKSPACE = enums.ImGuiKey_Backspace     # for text edit
-KEY_SPACE = enums.ImGuiKey_Space             # for text edit
-KEY_ENTER = enums.ImGuiKey_Enter             # for text edit
-KEY_ESCAPE = enums.ImGuiKey_Escape           # for text edit
-KEY_PAD_ENTER = enums.ImGuiKey_KeyPadEnter
-KEY_A = enums.ImGuiKey_A                     # for text edit CTRL+A: select all
-KEY_C = enums.ImGuiKey_C                     # for text edit CTRL+C: copy
-KEY_V = enums.ImGuiKey_V                     # for text edit CTRL+V: paste
-KEY_X = enums.ImGuiKey_X                     # for text edit CTRL+X: cut
-KEY_Y = enums.ImGuiKey_Y                     # for text edit CTRL+Y: redo
-KEY_Z = enums.ImGuiKey_Z                     # for text edit CTRL+Z: undo
-
-# ==== Key Mod Flags ====
-KEY_MOD_NONE = enums.ImGuiKeyModFlags_None       
-KEY_MOD_CTRL = enums.ImGuiKeyModFlags_Ctrl       
-KEY_MOD_SHIFT = enums.ImGuiKeyModFlags_Shift      
-KEY_MOD_ALT = enums.ImGuiKeyModFlags_Alt        
-KEY_MOD_SUPER = enums.ImGuiKeyModFlags_Super     
-
-# ==== Nav Input ====
-NAV_INPUT_ACTIVATE = enums.ImGuiNavInput_Activate
-NAV_INPUT_CANCEL = enums.ImGuiNavInput_Cancel
-NAV_INPUT_INPUT = enums.ImGuiNavInput_Input
-NAV_INPUT_MENU = enums.ImGuiNavInput_Menu
-NAV_INPUT_DPAD_LEFT = enums.ImGuiNavInput_DpadLeft
-NAV_INPUT_DPAD_RIGHT = enums.ImGuiNavInput_DpadRight
-NAV_INPUT_DPAD_UP = enums.ImGuiNavInput_DpadUp
-NAV_INPUT_DPAD_DOWN = enums.ImGuiNavInput_DpadDown
-NAV_INPUT_L_STICK_LEFT = enums.ImGuiNavInput_LStickLeft
-NAV_INPUT_L_STICK_RIGHT = enums.ImGuiNavInput_LStickRight
-NAV_INPUT_L_STICK_UP = enums.ImGuiNavInput_LStickUp
-NAV_INPUT_L_STICK_DOWN = enums.ImGuiNavInput_LStickDown
-NAV_INPUT_FOCUS_PREV = enums.ImGuiNavInput_FocusPrev
-NAV_INPUT_FOCUS_NEXT = enums.ImGuiNavInput_FocusNext
-NAV_INPUT_TWEAK_SLOW = enums.ImGuiNavInput_TweakSlow
-NAV_INPUT_TWEAK_FAST = enums.ImGuiNavInput_TweakFast
-NAV_INPUT_COUNT = enums.ImGuiNavInput_COUNT
-
 # ==== Window flags enum redefines ====
 WINDOW_NONE = enums.ImGuiWindowFlags_None
 WINDOW_NO_TITLE_BAR = enums.ImGuiWindowFlags_NoTitleBar
@@ -158,35 +69,31 @@ WINDOW_UNSAVED_DOCUMENT = enums.ImGuiWindowFlags_UnsavedDocument
 WINDOW_NO_NAV = enums.ImGuiWindowFlags_NoNav
 WINDOW_NO_DECORATION = enums.ImGuiWindowFlags_NoDecoration
 WINDOW_NO_INPUTS = enums.ImGuiWindowFlags_NoInputs
+WINDOW_NO_DOCKING = enums.ImGuiWindowFlags_NoDocking
 
-# ==== Color Edit Flags ====
-COLOR_EDIT_NONE = enums.ImGuiColorEditFlags_None            
-COLOR_EDIT_NO_ALPHA = enums.ImGuiColorEditFlags_NoAlpha         
-COLOR_EDIT_NO_PICKER = enums.ImGuiColorEditFlags_NoPicker        
-COLOR_EDIT_NO_OPTIONS = enums.ImGuiColorEditFlags_NoOptions       
-COLOR_EDIT_NO_SMALL_PREVIEW = enums.ImGuiColorEditFlags_NoSmallPreview  
-COLOR_EDIT_NO_INPUTS = enums.ImGuiColorEditFlags_NoInputs        
-COLOR_EDIT_NO_TOOLTIP = enums.ImGuiColorEditFlags_NoTooltip       
-COLOR_EDIT_NO_LABEL = enums.ImGuiColorEditFlags_NoLabel         
-COLOR_EDIT_NO_SIDE_PREVIEW = enums.ImGuiColorEditFlags_NoSidePreview   
-COLOR_EDIT_NO_DRAG_DROP = enums.ImGuiColorEditFlags_NoDragDrop      
-COLOR_EDIT_NO_BORDER = enums.ImGuiColorEditFlags_NoBorder        
-
-COLOR_EDIT_ALPHA_BAR = enums.ImGuiColorEditFlags_AlphaBar        
-COLOR_EDIT_ALPHA_PREVIEW = enums.ImGuiColorEditFlags_AlphaPreview    
-COLOR_EDIT_ALPHA_PREVIEW_HALF = enums.ImGuiColorEditFlags_AlphaPreviewHalf
-COLOR_EDIT_HDR = enums.ImGuiColorEditFlags_HDR             
-COLOR_EDIT_DISPLAY_RGB = enums.ImGuiColorEditFlags_DisplayRGB      
-COLOR_EDIT_DISPLAY_HSV = enums.ImGuiColorEditFlags_DisplayHSV      
-COLOR_EDIT_DISPLAY_HEX = enums.ImGuiColorEditFlags_DisplayHex      
-COLOR_EDIT_UINT8 = enums.ImGuiColorEditFlags_Uint8           
-COLOR_EDIT_FLOAT = enums.ImGuiColorEditFlags_Float           
-COLOR_EDIT_PICKER_HUE_BAR = enums.ImGuiColorEditFlags_PickerHueBar    
-COLOR_EDIT_PICKER_HUE_WHEEL = enums.ImGuiColorEditFlags_PickerHueWheel  
-COLOR_EDIT_INPUT_RGB = enums.ImGuiColorEditFlags_InputRGB        
-COLOR_EDIT_INPUT_HSV = enums.ImGuiColorEditFlags_InputHSV        
-
-COLOR_EDIT_DEFAULT_OPTIONS = enums.ImGuiColorEditFlags__OptionsDefault
+# ==== Text input flags ====
+INPUT_TEXT_NONE = enums.ImGuiInputTextFlags_None
+INPUT_TEXT_CHARS_DECIMAL = enums.ImGuiInputTextFlags_CharsDecimal
+INPUT_TEXT_CHARS_HEXADECIMAL = enums.ImGuiInputTextFlags_CharsHexadecimal
+INPUT_TEXT_CHARS_UPPERCASE = enums.ImGuiInputTextFlags_CharsUppercase
+INPUT_TEXT_CHARS_NO_BLANK = enums.ImGuiInputTextFlags_CharsNoBlank
+INPUT_TEXT_AUTO_SELECT_ALL = enums.ImGuiInputTextFlags_AutoSelectAll
+INPUT_TEXT_ENTER_RETURNS_TRUE = enums.ImGuiInputTextFlags_EnterReturnsTrue
+INPUT_TEXT_CALLBACK_COMPLETION = enums.ImGuiInputTextFlags_CallbackCompletion
+INPUT_TEXT_CALLBACK_HISTORY = enums.ImGuiInputTextFlags_CallbackHistory
+INPUT_TEXT_CALLBACK_ALWAYS = enums.ImGuiInputTextFlags_CallbackAlways
+INPUT_TEXT_CALLBACK_CHAR_FILTER = enums.ImGuiInputTextFlags_CallbackCharFilter
+INPUT_TEXT_ALLOW_TAB_INPUT = enums.ImGuiInputTextFlags_AllowTabInput
+INPUT_TEXT_CTRL_ENTER_FOR_NEW_LINE = enums.ImGuiInputTextFlags_CtrlEnterForNewLine
+INPUT_TEXT_NO_HORIZONTAL_SCROLL = enums.ImGuiInputTextFlags_NoHorizontalScroll
+INPUT_TEXT_ALWAYS_OVERWRITE = enums.ImGuiInputTextFlags_AlwaysOverwrite
+INPUT_TEXT_ALWAYS_INSERT_MODE = enums.ImGuiInputTextFlags_AlwaysInsertMode # OBSOLETED in 1.82 (from Mars 2021)
+INPUT_TEXT_READ_ONLY = enums.ImGuiInputTextFlags_ReadOnly
+INPUT_TEXT_PASSWORD = enums.ImGuiInputTextFlags_Password
+INPUT_TEXT_NO_UNDO_REDO = enums.ImGuiInputTextFlags_NoUndoRedo
+INPUT_TEXT_CHARS_SCIENTIFIC = enums.ImGuiInputTextFlags_CharsScientific
+INPUT_TEXT_CALLBACK_RESIZE = enums.ImGuiInputTextFlags_CallbackResize
+INPUT_TEXT_CALLBACK_EDIT = enums.ImGuiInputTextFlags_CallbackEdit
 
 # ==== TreeNode flags enum redefines ====
 TREE_NODE_NONE = enums.ImGuiTreeNodeFlags_None
@@ -342,7 +249,6 @@ TABLE_BACKGROUND_TARGET_ROW_BG0 = enums.ImGuiTableBgTarget_RowBg0
 TABLE_BACKGROUND_TARGET_ROW_BG1 = enums.ImGuiTableBgTarget_RowBg1
 TABLE_BACKGROUND_TARGET_CELL_BG = enums.ImGuiTableBgTarget_CellBg
 
-
 # === Focus flag enum redefines ====
 # TODO: Change to FOCUSED_ ?
 FOCUS_NONE = enums.ImGuiFocusedFlags_None
@@ -363,6 +269,15 @@ HOVERED_ALLOW_WHEN_DISABLED = enums.ImGuiHoveredFlags_AllowWhenDisabled
 HOVERED_RECT_ONLY = enums.ImGuiHoveredFlags_RectOnly
 HOVERED_ROOT_AND_CHILD_WINDOWS = enums.ImGuiHoveredFlags_RootAndChildWindows
 
+# === Dock Node flags enum redefines ====
+DOCK_NODE_NONE = enums.ImGuiDockNodeFlags_None
+DOCK_NODE_KEEP_ALIVE_ONLY = enums.ImGuiDockNodeFlags_KeepAliveOnly
+DOCK_NODE_NO_DOCKING_IN_CENTRAL_NODE = enums.ImGuiDockNodeFlags_NoDockingInCentralNode
+DOCK_NODE_PASS_THRU_CENTRAL_NODE = enums.ImGuiDockNodeFlags_PassthruCentralNode
+DOCK_NODE_NO_SPLIT = enums.ImGuiDockNodeFlags_NoSplit
+DOCK_NODE_NO_RESIZE = enums.ImGuiDockNodeFlags_NoResize
+DOCK_NODE_AUTO_HIDE_TAB_BAR = enums.ImGuiDockNodeFlags_AutoHideTabBar
+
 # === Drag Drop flag enum redefines ====
 DRAG_DROP_NONE = enums.ImGuiDragDropFlags_None
 DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP = enums.ImGuiDragDropFlags_SourceNoPreviewTooltip
@@ -378,6 +293,18 @@ DRAG_DROP_ACCEPT_NO_DRAW_DEFAULT_RECT = enums.ImGuiDragDropFlags_AcceptNoDrawDef
 DRAG_DROP_ACCEPT_NO_PREVIEW_TOOLTIP = enums.ImGuiDragDropFlags_AcceptNoPreviewTooltip
 DRAG_DROP_ACCEPT_PEEK_ONLY = enums.ImGuiDragDropFlags_AcceptPeekOnly
 
+# ==== Data Type ====
+DATA_TYPE_S8     = enums.ImGuiDataType_S8     
+DATA_TYPE_U8     = enums.ImGuiDataType_U8     
+DATA_TYPE_S16    = enums.ImGuiDataType_S16    
+DATA_TYPE_U16    = enums.ImGuiDataType_U16    
+DATA_TYPE_S32    = enums.ImGuiDataType_S32    
+DATA_TYPE_U32    = enums.ImGuiDataType_U32    
+DATA_TYPE_S64    = enums.ImGuiDataType_S64    
+DATA_TYPE_U64    = enums.ImGuiDataType_U64    
+DATA_TYPE_FLOAT  = enums.ImGuiDataType_Float  
+DATA_TYPE_DOUBLE = enums.ImGuiDataType_Double 
+
 # === Cardinal Direction enum redefines ====
 DIRECTION_NONE = enums.ImGuiDir_None
 DIRECTION_LEFT = enums.ImGuiDir_Left
@@ -390,17 +317,83 @@ SORT_DIRECTION_NONE = enums.ImGuiSortDirection_None
 SORT_DIRECTION_ASCENDING = enums.ImGuiSortDirection_Ascending 
 SORT_DIRECTION_DESCENDING = enums.ImGuiSortDirection_Descending
 
-# ==== Mouse Cursors ====
-MOUSE_CURSOR_NONE = enums.ImGuiMouseCursor_None
-MOUSE_CURSOR_ARROW = enums.ImGuiMouseCursor_Arrow
-MOUSE_CURSOR_TEXT_INPUT = enums.ImGuiMouseCursor_TextInput
-MOUSE_CURSOR_RESIZE_ALL = enums.ImGuiMouseCursor_ResizeAll
-MOUSE_CURSOR_RESIZE_NS = enums.ImGuiMouseCursor_ResizeNS
-MOUSE_CURSOR_RESIZE_EW = enums.ImGuiMouseCursor_ResizeEW
-MOUSE_CURSOR_RESIZE_NESW = enums.ImGuiMouseCursor_ResizeNESW
-MOUSE_CURSOR_RESIZE_NWSE = enums.ImGuiMouseCursor_ResizeNWSE
-MOUSE_CURSOR_HAND = enums.ImGuiMouseCursor_Hand
-MOUSE_CURSOR_NOT_ALLOWED = enums.ImGuiMouseCursor_NotAllowed
+# ==== Key map enum redefines ====
+KEY_TAB = enums.ImGuiKey_Tab                 # for tabbing through fields
+KEY_LEFT_ARROW = enums.ImGuiKey_LeftArrow    # for text edit
+KEY_RIGHT_ARROW = enums.ImGuiKey_RightArrow  # for text edit
+KEY_UP_ARROW = enums.ImGuiKey_UpArrow        # for text edit
+KEY_DOWN_ARROW = enums.ImGuiKey_DownArrow    # for text edit
+KEY_PAGE_UP = enums.ImGuiKey_PageUp
+KEY_PAGE_DOWN = enums.ImGuiKey_PageDown
+KEY_HOME = enums.ImGuiKey_Home               # for text edit
+KEY_END = enums.ImGuiKey_End                 # for text edit
+KEY_INSERT = enums.ImGuiKey_Insert           # for text edit
+KEY_DELETE = enums.ImGuiKey_Delete           # for text edit
+KEY_BACKSPACE = enums.ImGuiKey_Backspace     # for text edit
+KEY_SPACE = enums.ImGuiKey_Space             # for text edit
+KEY_ENTER = enums.ImGuiKey_Enter             # for text edit
+KEY_ESCAPE = enums.ImGuiKey_Escape           # for text edit
+KEY_PAD_ENTER = enums.ImGuiKey_KeyPadEnter
+KEY_A = enums.ImGuiKey_A                     # for text edit CTRL+A: select all
+KEY_C = enums.ImGuiKey_C                     # for text edit CTRL+C: copy
+KEY_V = enums.ImGuiKey_V                     # for text edit CTRL+V: paste
+KEY_X = enums.ImGuiKey_X                     # for text edit CTRL+X: cut
+KEY_Y = enums.ImGuiKey_Y                     # for text edit CTRL+Y: redo
+KEY_Z = enums.ImGuiKey_Z                     # for text edit CTRL+Z: undo
+
+# ==== Key Mod Flags ====
+KEY_MOD_NONE = enums.ImGuiKeyModFlags_None       
+KEY_MOD_CTRL = enums.ImGuiKeyModFlags_Ctrl       
+KEY_MOD_SHIFT = enums.ImGuiKeyModFlags_Shift      
+KEY_MOD_ALT = enums.ImGuiKeyModFlags_Alt        
+KEY_MOD_SUPER = enums.ImGuiKeyModFlags_Super     
+
+# ==== Nav Input ====
+NAV_INPUT_ACTIVATE = enums.ImGuiNavInput_Activate
+NAV_INPUT_CANCEL = enums.ImGuiNavInput_Cancel
+NAV_INPUT_INPUT = enums.ImGuiNavInput_Input
+NAV_INPUT_MENU = enums.ImGuiNavInput_Menu
+NAV_INPUT_DPAD_LEFT = enums.ImGuiNavInput_DpadLeft
+NAV_INPUT_DPAD_RIGHT = enums.ImGuiNavInput_DpadRight
+NAV_INPUT_DPAD_UP = enums.ImGuiNavInput_DpadUp
+NAV_INPUT_DPAD_DOWN = enums.ImGuiNavInput_DpadDown
+NAV_INPUT_L_STICK_LEFT = enums.ImGuiNavInput_LStickLeft
+NAV_INPUT_L_STICK_RIGHT = enums.ImGuiNavInput_LStickRight
+NAV_INPUT_L_STICK_UP = enums.ImGuiNavInput_LStickUp
+NAV_INPUT_L_STICK_DOWN = enums.ImGuiNavInput_LStickDown
+NAV_INPUT_FOCUS_PREV = enums.ImGuiNavInput_FocusPrev
+NAV_INPUT_FOCUS_NEXT = enums.ImGuiNavInput_FocusNext
+NAV_INPUT_TWEAK_SLOW = enums.ImGuiNavInput_TweakSlow
+NAV_INPUT_TWEAK_FAST = enums.ImGuiNavInput_TweakFast
+NAV_INPUT_COUNT = enums.ImGuiNavInput_COUNT
+
+# ==== Config Flags ====
+CONFIG_NONE = enums.ImGuiConfigFlags_None
+CONFIG_NAV_ENABLE_KEYBOARD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableKeyboard
+CONFIG_NAV_ENABLE_GAMEPAD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableGamepad
+CONFIG_NAV_ENABLE_SET_MOUSE_POS = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableSetMousePos
+CONFIG_NAV_NO_CAPTURE_KEYBOARD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavNoCaptureKeyboard
+CONFIG_NO_MOUSE = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouse
+CONFIG_NO_MOUSE_CURSOR_CHARGE = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouseCursorChange
+CONFIG_IS_RGB = enums.ImGuiConfigFlags_.ImGuiConfigFlags_IsSRGB
+CONFIG_IS_TOUCH_SCREEN = enums.ImGuiConfigFlags_.ImGuiConfigFlags_IsTouchScreen
+# [BETA] Docking
+CONFIG_DOCKING_ENABLE = enums.ImGuiConfigFlags_DockingEnable
+# [BETA] Viewports
+CONFIG_VIEWPORTS_ENABLE = enums.ImGuiConfigFlags_ViewportsEnable
+CONFIG_DPI_ENABLE_SCALE_VIEWPORTS = enums.ImGuiConfigFlags_DpiEnableScaleViewports
+CONFIG_DPI_ENABLE_SCALE_FONTS= enums.ImGuiConfigFlags_DpiEnableScaleFonts
+
+# ==== Backend Flags ====
+BACKEND_NONE = enums.ImGuiBackendFlags_None
+BACKEND_HAS_GAMEPAD = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasGamepad
+BACKEND_HAS_MOUSE_CURSORS = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasMouseCursors
+BACKEND_HAS_SET_MOUSE_POS = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasSetMousePos
+BACKEND_RENDERER_HAS_VTX_OFFSET = enums.ImGuiBackendFlags_RendererHasVtxOffset
+# [BETA] Viewport
+BACKEND_PLATFORM_HAS_VIEWPORTS = enums.ImGuiBackendFlags_PlatformHasViewports
+BACKEND_HAS_MOUSE_HOVERED_VIEWPORT = enums.ImGuiBackendFlags_HasMouseHoveredViewport
+BACKEND_RENDERER_HAS_VIEWPORTS = enums.ImGuiBackendFlags_RendererHasViewports
 
 # ==== Color identifiers for styling ====
 COLOR_TEXT = enums.ImGuiCol_Text
@@ -441,6 +434,8 @@ COLOR_TAB_HOVERED = enums.ImGuiCol_TabHovered
 COLOR_TAB_ACTIVE = enums.ImGuiCol_TabActive
 COLOR_TAB_UNFOCUSED = enums.ImGuiCol_TabUnfocused
 COLOR_TAB_UNFOCUSED_ACTIVE = enums.ImGuiCol_TabUnfocusedActive
+COLOR_DOCKING_PREVIEW = enums.ImGuiCol_DockingPreview
+COLOR_DOCKING_EMPTY_BG = enums.ImGuiCol_DockingEmptyBg
 COLOR_PLOT_LINES = enums.ImGuiCol_PlotLines
 COLOR_PLOT_LINES_HOVERED = enums.ImGuiCol_PlotLinesHovered
 COLOR_PLOT_HISTOGRAM = enums.ImGuiCol_PlotHistogram
@@ -458,41 +453,99 @@ COLOR_NAV_WINDOWING_DIM_BACKGROUND = enums.ImGuiCol_NavWindowingDimBg
 COLOR_MODAL_WINDOW_DIM_BACKGROUND = enums.ImGuiCol_ModalWindowDimBg
 COLOR_COUNT = enums.ImGuiCol_COUNT
 
-# ==== Data Type ====
-DATA_TYPE_S8     = enums.ImGuiDataType_S8     
-DATA_TYPE_U8     = enums.ImGuiDataType_U8     
-DATA_TYPE_S16    = enums.ImGuiDataType_S16    
-DATA_TYPE_U16    = enums.ImGuiDataType_U16    
-DATA_TYPE_S32    = enums.ImGuiDataType_S32    
-DATA_TYPE_U32    = enums.ImGuiDataType_U32    
-DATA_TYPE_S64    = enums.ImGuiDataType_S64    
-DATA_TYPE_U64    = enums.ImGuiDataType_U64    
-DATA_TYPE_FLOAT  = enums.ImGuiDataType_Float  
-DATA_TYPE_DOUBLE = enums.ImGuiDataType_Double 
+# ==== Style var enum redefines ====
+STYLE_ALPHA = enums.ImGuiStyleVar_Alpha # float
+STYLE_WINDOW_PADDING = enums.ImGuiStyleVar_WindowPadding  # Vec2
+STYLE_WINDOW_ROUNDING = enums.ImGuiStyleVar_WindowRounding  # float
+STYLE_WINDOW_BORDERSIZE = enums.ImGuiStyleVar_WindowBorderSize  # float
+STYLE_WINDOW_MIN_SIZE = enums.ImGuiStyleVar_WindowMinSize  # Vec2
+STYLE_WINDOW_TITLE_ALIGN = enums.ImGuiStyleVar_WindowTitleAlign  # Vec2
+STYLE_CHILD_ROUNDING = enums.ImGuiStyleVar_ChildRounding  # float
+STYLE_CHILD_BORDERSIZE = enums.ImGuiStyleVar_ChildBorderSize  # float
+STYLE_POPUP_ROUNDING = enums.ImGuiStyleVar_PopupRounding  # float
+STYLE_POPUP_BORDERSIZE = enums.ImGuiStyleVar_PopupBorderSize  # float
+STYLE_FRAME_PADDING = enums.ImGuiStyleVar_FramePadding # Vec2
+STYLE_FRAME_ROUNDING = enums.ImGuiStyleVar_FrameRounding # float
+STYLE_FRAME_BORDERSIZE = enums.ImGuiStyleVar_FrameBorderSize  # float
+STYLE_ITEM_SPACING = enums.ImGuiStyleVar_ItemSpacing # Vec2
+STYLE_ITEM_INNER_SPACING = enums.ImGuiStyleVar_ItemInnerSpacing # Vec2
+STYLE_INDENT_SPACING = enums.ImGuiStyleVar_IndentSpacing # float
+STYLE_CELL_PADDING = enums.ImGuiStyleVar_CellPadding # ImVec2    CellPadding
+STYLE_SCROLLBAR_SIZE = enums.ImGuiStyleVar_ScrollbarSize # float
+STYLE_SCROLLBAR_ROUNDING = enums.ImGuiStyleVar_ScrollbarRounding # float
+STYLE_GRAB_MIN_SIZE = enums.ImGuiStyleVar_GrabMinSize # float
+STYLE_GRAB_ROUNDING = enums.ImGuiStyleVar_GrabRounding # float
+STYLE_TAB_ROUNDING = enums.ImGuiStyleVar_TabRounding # flot
+STYLE_BUTTON_TEXT_ALIGN = enums.ImGuiStyleVar_ButtonTextAlign # Vec2
+STYLE_SELECTABLE_TEXT_ALIGN = enums.ImGuiStyleVar_SelectableTextAlign # Vec2
 
-# ==== Text input flags ====
-INPUT_TEXT_NONE = enums.ImGuiInputTextFlags_None
-INPUT_TEXT_CHARS_DECIMAL = enums.ImGuiInputTextFlags_CharsDecimal
-INPUT_TEXT_CHARS_HEXADECIMAL = enums.ImGuiInputTextFlags_CharsHexadecimal
-INPUT_TEXT_CHARS_UPPERCASE = enums.ImGuiInputTextFlags_CharsUppercase
-INPUT_TEXT_CHARS_NO_BLANK = enums.ImGuiInputTextFlags_CharsNoBlank
-INPUT_TEXT_AUTO_SELECT_ALL = enums.ImGuiInputTextFlags_AutoSelectAll
-INPUT_TEXT_ENTER_RETURNS_TRUE = enums.ImGuiInputTextFlags_EnterReturnsTrue
-INPUT_TEXT_CALLBACK_COMPLETION = enums.ImGuiInputTextFlags_CallbackCompletion
-INPUT_TEXT_CALLBACK_HISTORY = enums.ImGuiInputTextFlags_CallbackHistory
-INPUT_TEXT_CALLBACK_ALWAYS = enums.ImGuiInputTextFlags_CallbackAlways
-INPUT_TEXT_CALLBACK_CHAR_FILTER = enums.ImGuiInputTextFlags_CallbackCharFilter
-INPUT_TEXT_ALLOW_TAB_INPUT = enums.ImGuiInputTextFlags_AllowTabInput
-INPUT_TEXT_CTRL_ENTER_FOR_NEW_LINE = enums.ImGuiInputTextFlags_CtrlEnterForNewLine
-INPUT_TEXT_NO_HORIZONTAL_SCROLL = enums.ImGuiInputTextFlags_NoHorizontalScroll
-INPUT_TEXT_ALWAYS_OVERWRITE = enums.ImGuiInputTextFlags_AlwaysOverwrite
-INPUT_TEXT_ALWAYS_INSERT_MODE = enums.ImGuiInputTextFlags_AlwaysInsertMode # OBSOLETED in 1.82 (from Mars 2021)
-INPUT_TEXT_READ_ONLY = enums.ImGuiInputTextFlags_ReadOnly
-INPUT_TEXT_PASSWORD = enums.ImGuiInputTextFlags_Password
-INPUT_TEXT_NO_UNDO_REDO = enums.ImGuiInputTextFlags_NoUndoRedo
-INPUT_TEXT_CHARS_SCIENTIFIC = enums.ImGuiInputTextFlags_CharsScientific
-INPUT_TEXT_CALLBACK_RESIZE = enums.ImGuiInputTextFlags_CallbackResize
-INPUT_TEXT_CALLBACK_EDIT = enums.ImGuiInputTextFlags_CallbackEdit
+
+# ==== Button Flags ====
+BUTTON_NONE = enums.ImGuiButtonFlags_None                   
+BUTTON_MOUSE_BUTTON_LEFT = enums.ImGuiButtonFlags_MouseButtonLeft        
+BUTTON_MOUSE_BUTTON_RIGHT = enums.ImGuiButtonFlags_MouseButtonRight       
+BUTTON_MOUSE_BUTTON_MIDDLE = enums.ImGuiButtonFlags_MouseButtonMiddle      
+
+# ==== Color Edit Flags ====
+COLOR_EDIT_NONE = enums.ImGuiColorEditFlags_None            
+COLOR_EDIT_NO_ALPHA = enums.ImGuiColorEditFlags_NoAlpha         
+COLOR_EDIT_NO_PICKER = enums.ImGuiColorEditFlags_NoPicker        
+COLOR_EDIT_NO_OPTIONS = enums.ImGuiColorEditFlags_NoOptions       
+COLOR_EDIT_NO_SMALL_PREVIEW = enums.ImGuiColorEditFlags_NoSmallPreview  
+COLOR_EDIT_NO_INPUTS = enums.ImGuiColorEditFlags_NoInputs        
+COLOR_EDIT_NO_TOOLTIP = enums.ImGuiColorEditFlags_NoTooltip       
+COLOR_EDIT_NO_LABEL = enums.ImGuiColorEditFlags_NoLabel         
+COLOR_EDIT_NO_SIDE_PREVIEW = enums.ImGuiColorEditFlags_NoSidePreview   
+COLOR_EDIT_NO_DRAG_DROP = enums.ImGuiColorEditFlags_NoDragDrop      
+COLOR_EDIT_NO_BORDER = enums.ImGuiColorEditFlags_NoBorder        
+
+COLOR_EDIT_ALPHA_BAR = enums.ImGuiColorEditFlags_AlphaBar        
+COLOR_EDIT_ALPHA_PREVIEW = enums.ImGuiColorEditFlags_AlphaPreview    
+COLOR_EDIT_ALPHA_PREVIEW_HALF = enums.ImGuiColorEditFlags_AlphaPreviewHalf
+COLOR_EDIT_HDR = enums.ImGuiColorEditFlags_HDR             
+COLOR_EDIT_DISPLAY_RGB = enums.ImGuiColorEditFlags_DisplayRGB      
+COLOR_EDIT_DISPLAY_HSV = enums.ImGuiColorEditFlags_DisplayHSV      
+COLOR_EDIT_DISPLAY_HEX = enums.ImGuiColorEditFlags_DisplayHex      
+COLOR_EDIT_UINT8 = enums.ImGuiColorEditFlags_Uint8           
+COLOR_EDIT_FLOAT = enums.ImGuiColorEditFlags_Float           
+COLOR_EDIT_PICKER_HUE_BAR = enums.ImGuiColorEditFlags_PickerHueBar    
+COLOR_EDIT_PICKER_HUE_WHEEL = enums.ImGuiColorEditFlags_PickerHueWheel  
+COLOR_EDIT_INPUT_RGB = enums.ImGuiColorEditFlags_InputRGB        
+COLOR_EDIT_INPUT_HSV = enums.ImGuiColorEditFlags_InputHSV        
+
+COLOR_EDIT_DEFAULT_OPTIONS = enums.ImGuiColorEditFlags__OptionsDefault
+
+# ==== Slider Flags ====
+SLIDER_FLAGS_NONE = enums.ImGuiSliderFlags_None
+SLIDER_FLAGS_ALWAYS_CLAMP = enums.ImGuiSliderFlags_AlwaysClamp
+SLIDER_FLAGS_LOGARITHMIC = enums.ImGuiSliderFlags_Logarithmic
+SLIDER_FLAGS_NO_ROUND_TO_FORMAT = enums.ImGuiSliderFlags_NoRoundToFormat
+SLIDER_FLAGS_NO_INPUT = enums.ImGuiSliderFlags_NoInput
+
+# ==== Mouse Button ====
+MOUSE_BUTTON_LEFT = enums.ImGuiMouseButton_Left 
+MOUSE_BUTTON_RIGHT = enums.ImGuiMouseButton_Right 
+MOUSE_BUTTON_MIDDLE = enums.ImGuiMouseButton_Middle
+
+
+# ==== Mouse Cursors ====
+MOUSE_CURSOR_NONE = enums.ImGuiMouseCursor_None
+MOUSE_CURSOR_ARROW = enums.ImGuiMouseCursor_Arrow
+MOUSE_CURSOR_TEXT_INPUT = enums.ImGuiMouseCursor_TextInput
+MOUSE_CURSOR_RESIZE_ALL = enums.ImGuiMouseCursor_ResizeAll
+MOUSE_CURSOR_RESIZE_NS = enums.ImGuiMouseCursor_ResizeNS
+MOUSE_CURSOR_RESIZE_EW = enums.ImGuiMouseCursor_ResizeEW
+MOUSE_CURSOR_RESIZE_NESW = enums.ImGuiMouseCursor_ResizeNESW
+MOUSE_CURSOR_RESIZE_NWSE = enums.ImGuiMouseCursor_ResizeNWSE
+MOUSE_CURSOR_HAND = enums.ImGuiMouseCursor_Hand
+MOUSE_CURSOR_NOT_ALLOWED = enums.ImGuiMouseCursor_NotAllowed
+
+# ==== Condition enum redefines ====
+NONE = enums.ImGuiCond_None
+ALWAYS = enums.ImGuiCond_Always
+ONCE = enums.ImGuiCond_Once
+FIRST_USE_EVER = enums.ImGuiCond_FirstUseEver
+APPEARING = enums.ImGuiCond_Appearing
 
 # ==== Draw Corner Flags ===
 # OBSOLETED in 1.82 (from Mars 2021), use ImDrawFlags_xxx
@@ -535,41 +588,21 @@ FONT_ATLAS_NO_POWER_OF_TWO_HEIGHT = enums.ImFontAtlasFlags_NoPowerOfTwoHeight
 FONT_ATLAS_NO_MOUSE_CURSOR = enums.ImFontAtlasFlags_NoMouseCursors     
 FONT_ATLAS_NO_BAKED_LINES = enums.ImFontAtlasFlags_NoBakedLines           
 
-# ==== Config Flags ====
-CONFIG_NONE = enums.ImGuiConfigFlags_None
-CONFIG_NAV_ENABLE_KEYBOARD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableKeyboard
-CONFIG_NAV_ENABLE_GAMEPAD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableGamepad
-CONFIG_NAV_ENABLE_SET_MOUSE_POS = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableSetMousePos
-CONFIG_NAV_NO_CAPTURE_KEYBOARD = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NavNoCaptureKeyboard
-CONFIG_NO_MOUSE = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouse
-CONFIG_NO_MOUSE_CURSOR_CHARGE = enums.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouseCursorChange
-CONFIG_IS_RGB = enums.ImGuiConfigFlags_.ImGuiConfigFlags_IsSRGB
-CONFIG_IS_TOUCH_SCREEN = enums.ImGuiConfigFlags_.ImGuiConfigFlags_IsTouchScreen
-
-# ==== Backend Flags ====
-BACKEND_NONE = enums.ImGuiBackendFlags_None
-BACKEND_HAS_GAMEPAD = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasGamepad
-BACKEND_HAS_MOUSE_CURSORS = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasMouseCursors
-BACKEND_HAS_SET_MOUSE_POS = enums.ImGuiBackendFlags_.ImGuiBackendFlags_HasSetMousePos
-BACKEND_RENDERER_HAS_VTX_OFFSET = enums.ImGuiBackendFlags_RendererHasVtxOffset
-
-# ==== Slider Flags ====
-SLIDER_FLAGS_NONE = enums.ImGuiSliderFlags_None
-SLIDER_FLAGS_ALWAYS_CLAMP = enums.ImGuiSliderFlags_AlwaysClamp
-SLIDER_FLAGS_LOGARITHMIC = enums.ImGuiSliderFlags_Logarithmic
-SLIDER_FLAGS_NO_ROUND_TO_FORMAT = enums.ImGuiSliderFlags_NoRoundToFormat
-SLIDER_FLAGS_NO_INPUT = enums.ImGuiSliderFlags_NoInput
-
-# ==== Mouse Button ====
-MOUSE_BUTTON_LEFT = enums.ImGuiMouseButton_Left 
-MOUSE_BUTTON_RIGHT = enums.ImGuiMouseButton_Right 
-MOUSE_BUTTON_MIDDLE = enums.ImGuiMouseButton_Middle
-
 # ==== Viewport Flags ====
 VIEWPORT_FLAGS_NONE = enums.ImGuiViewportFlags_None                     #
 VIEWPORT_FLAGS_IS_PLATFORM_WINDOW = enums.ImGuiViewportFlags_IsPlatformWindow         # Represent a Platform Window
 VIEWPORT_FLAGS_IS_PLATFORM_MONITOR = enums.ImGuiViewportFlags_IsPlatformMonitor        # Represent a Platform Monitor (unused yet)
 VIEWPORT_FLAGS_OWNED_BY_APP = enums.ImGuiViewportFlags_OwnedByApp               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_DECORATION = enums.ImGuiViewportFlags_NoDecoration               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_TASK_BAR_ICON = enums.ImGuiViewportFlags_NoTaskBarIcon               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_FOCUS_ON_APPEARING = enums.ImGuiViewportFlags_NoFocusOnAppearing               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_FOCUS_ON_CLICK = enums.ImGuiViewportFlags_NoFocusOnClick               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_INPUTS = enums.ImGuiViewportFlags_NoInputs               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_RENDERER_CLEAR = enums.ImGuiViewportFlags_NoRendererClear               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_TOP_MOST = enums.ImGuiViewportFlags_TopMost               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_MINIMIZED = enums.ImGuiViewportFlags_Minimized               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_NO_AUTO_MERGE = enums.ImGuiViewportFlags_NoAutoMerge               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
+VIEWPORT_FLAGS_CAN_HOST_OTHER_WINDOWS = enums.ImGuiViewportFlags_CanHostOtherWindows               # Platform Window: is created/managed by the application (rather than a dear imgui backend)
 
 include "imgui/common.pyx"
 
@@ -2076,6 +2109,10 @@ cdef class _ImGuiViewport(object):
         return instance
     
     @property
+    def id(self):
+        return self._ptr.ID
+
+    @property
     def flags(self):
         self._require_pointer()
         return self._ptr.Flags
@@ -2103,7 +2140,14 @@ cdef class _ImGuiViewport(object):
         """Work Area: Size of the viewport minus task bars, menu bars, status bars (<= Size)"""
         self._require_pointer()
         return _cast_ImVec2_tuple(self._ptr.WorkSize)
-        
+    
+    @property
+    def dpi_scale(self):
+        return self._ptr.DpiScale
+    @dpi_scale.setter
+    def dpi_scale(self, float value):
+        self._ptr.DpiScale = value
+    
     def get_center(self):
         self._require_pointer()
         return _cast_ImVec2_tuple(self._ptr.GetCenter())
@@ -2531,6 +2575,62 @@ cdef class _IO(object):
     #@display_visible_max.setter
     #def display_visible_max(self,  value):
     #    self._ptr.DisplayVisibleMax = _cast_tuple_ImVec2(value)
+
+    @property
+    def config_docking_no_split(self):
+        return self._ptr.ConfigDockingNoSplit
+    
+    @config_docking_no_split.setter
+    def config_docking_no_split(self, value):
+        self._ptr.ConfigDockingNoSplit = value
+    
+    @property
+    def config_docking_always_tab_bar(self):
+        return self._ptr.ConfigDockingAlwaysTabBar
+    
+    @config_docking_always_tab_bar.setter
+    def config_docking_always_tab_bar(self,value):
+        self._ptr.ConfigDockingAlwaysTabBar = value
+    
+    @property
+    def config_docking_transparent_payload(self):
+        return self._ptr.ConfigDockingTransparentPayload
+    
+    @config_docking_transparent_payload.setter
+    def config_docking_transparent_payload(self,value):
+        self._ptr.ConfigDockingTransparentPayload = value
+    
+    @property
+    def config_viewports_no_auto_merge(self):
+        return self._ptr.ConfigViewportsNoAutoMerge
+    
+    @config_viewports_no_auto_merge.setter
+    def config_viewports_no_auto_merge(self,value):
+        self._ptr.ConfigViewportsNoAutoMerge = value
+    
+    @property
+    def config_viewports_no_task_bar_icon(self):
+        return self._ptr.ConfigViewportsNoTaskBarIcon
+    
+    @config_viewports_no_task_bar_icon.setter
+    def config_viewports_no_task_bar_icon(self,value):
+        self._ptr.ConfigViewportsNoTaskBarIcon = value
+    
+    @property
+    def config_viewports_no_decoration(self):
+        return self._ptr.ConfigViewportsNoDecoration
+    
+    @config_viewports_no_decoration.setter
+    def config_viewports_no_decoration(self,value):
+        self._ptr.ConfigViewportsNoDecoration = value
+    
+    @property
+    def config_viewports_no_default_parent(self):
+        return self._ptr.ConfigViewportsNoDefaultParent
+    
+    @config_viewports_no_default_parent.setter
+    def config_viewports_no_default_parent(self,value):
+        self._ptr.ConfigViewportsNoDefaultParent = value
 
     @property
     def config_mac_osx_behaviors(self):
@@ -3000,7 +3100,96 @@ cdef class _ImGuiSizeCallbackData(object):
     def desired_size(self, tuple size):
         self._require_pointer()
         self._ptr.DesiredSize = _cast_args_ImVec2(size[0], size[1])
-       
+
+cdef class _ImGuiWindowClass(object):
+    cdef cimgui.ImGuiWindowClass* _ptr
+
+    def __init__(self):
+        pass
+
+    def _require_pointer(self):
+        if self._ptr == NULL:
+            raise RuntimeError(
+                "%s improperly initialized" % self.__class__.__name__
+            )
+    @property
+    def class_id(self):
+        return self._ptr.ClassId
+    
+    @class_id.setter
+    def class_id(self, cimgui.ImGuiID id):
+        self._ptr.ClassId = id
+    
+    @property
+    def parent_viewport_id(self):
+        return self._ptr.ParentViewportId
+    
+    @parent_viewport_id.setter
+    def parent_viewport_id(self, cimgui.ImGuiID id):
+        self._ptr.ParentViewportId = id
+    
+    @property
+    def viewport_flags_override_set(self):
+        return self._ptr.ViewportFlagsOverrideSet
+    @viewport_flags_override_set.setter
+    def viewport_flags_override_set(self, cimgui.ImGuiViewportFlags flags):
+        self._ptr.ViewportFlagsOverrideSet = flags
+   
+    @property
+    def viewport_flags_override_clear(self):
+        return self._ptr.ViewportFlagsOverrideClear
+    @viewport_flags_override_clear.setter
+    def viewport_flags_override_clear(self, cimgui.ImGuiViewportFlags flags):
+        self._ptr.ViewportFlagsOverrideClear = flags
+    
+    @property
+    def tab_item_flags_override_set(self):
+        return self._ptr.TabItemFlagsOverrideSet
+    @tab_item_flags_override_set.setter
+    def tab_item_flags_override_set(self, cimgui.ImGuiTabItemFlags flags):
+        self._ptr.TabItemFlagsOverrideSet = flags
+    
+    @property
+    def dock_node_flags_override_set(self):
+        return self._ptr.DockNodeFlagsOverrideSet
+    @dock_node_flags_override_set.setter
+    def dock_node_flags_override_set(self, cimgui.ImGuiDockNodeFlags flags):
+        self._ptr.DockNodeFlagsOverrideSet = flags
+   
+    @property
+    def docking_always_tab_bar(self):
+        return self._ptr.DockingAlwaysTabBar
+    @docking_always_tab_bar.setter
+    def docking_always_tab_bar(self, bool value):
+        self._ptr.DockingAlwaysTabBar = value
+
+    @property
+    def docking_allow_unclassed(self):
+        return self._ptr.DockingAllowUnclassed
+    @docking_allow_unclassed.setter
+    def docking_allow_unclassed(self, bool value):
+        self._ptr.DockingAllowUnclassed = value
+
+cdef class _ImGuiOnceUponAFrame():
+    cdef cimgui.ImGuiOnceUponAFrame* _ptr
+
+    def __init__(self):
+        pass
+
+    def _require_pointer(self):
+        if self._ptr == NULL:
+            raise RuntimeError(
+                "%s improperly initialized" % self.__class__.__name__
+            )
+
+    @property
+    def ref_frame(self):
+        return self._ptr.RefFrame
+    
+    @ref_frame.setter
+    def ref_frame(self, int value):
+        self._ptr.RefFrame = value
+
 _io = None
 def get_io():
     global _io
@@ -3416,17 +3605,6 @@ def get_content_region_available():
 
 
 # OBSOLETED in 1.70 (from May 2019)
-def get_content_region_available_width():
-    """Get available content region width.
-
-    Returns:
-        float: available content region width.
-
-    .. wraps::
-        float GetContentRegionAvailWidth()
-    """
-    return cimgui.GetContentRegionAvailWidth()
-
 
 def get_window_content_region_min():
     """Get minimal current window content boundaries in window coordinates.
@@ -3899,6 +4077,9 @@ def set_next_window_size(
         )
     """
     cimgui.SetNextWindowSize(_cast_args_ImVec2(width, height), condition)
+    
+def set_next_window_viewport(cimgui.ImGuiID viewport_id):
+    cimgui.SetNextWindowViewport(viewport_id)
 
 # Useful for non trivial constraints
 cdef _callback_user_info _global_next_window_size_constraints_callback_user_info = _callback_user_info()
@@ -5215,6 +5396,35 @@ def table_set_background_color(
         )
     """
     cimgui.TableSetBgColor(target, color, column_n)
+
+def dockspace(
+    cimgui.ImGuiID id,
+    tuple size=(0,0),
+    cimgui.ImGuiDockNodeFlags flags=0
+):
+    return cimgui.DockSpace(
+        id, 
+        _cast_args_ImVec2(size[0], size[1]),
+        flags,
+        NULL
+    )
+
+def dockspace_over_viewport(
+    cimgui.ImGuiDockNodeFlags flags
+):
+    return cimgui.DockSpaceOverViewport(NULL, flags, NULL)
+
+def set_next_window_dock_id(cimgui.ImGuiID dock_id, cimgui.ImGuiCond cond):
+    cimgui.SetNextWindowDockID(dock_id, cond)
+
+#def set_next_window_class(cimgui.ImGuiWindowClass* window_class):
+#    cimgui.SetNextWindowClass(window_class)
+
+def get_window_dock_id():
+    return cimgui.GetWindowDockID()
+
+def is_window_docked():
+    return cimgui.IsWindowDocked()
 
 def text(str text):
     """Add text to current widget stack.
@@ -10459,6 +10669,23 @@ def pop_clip_rect():
     """
     cimgui.PopClipRect()
 
+# Multi-viewport
+# def get_platform_io():
+# return cimgui.GetPlatformIO()
+
+def update_platform_windows():
+    cimgui.UpdatePlatformWindows()
+
+def render_platform_windows_default():
+    cimgui.RenderPlatformWindowsDefault()
+
+def destroy_platform_windows():
+    cimgui.DestroyPlatformWindows()
+
+#def find_viewport_by_id(cimgui.ImGuiID id):
+#    return cimgui.FindViewportByID(id)
+
+
 def begin_group():
     """Start item group and lock its horizontal starting position.
 
@@ -10705,6 +10932,9 @@ def pop_id():
         PopID()
     """
     cimgui.PopID()
+
+def get_id(str id):
+    return cimgui.GetID(_bytes(id))
 
 def _ansifeed_text_ansi(str text):
     """Add ANSI-escape-formatted text to current widget stack.

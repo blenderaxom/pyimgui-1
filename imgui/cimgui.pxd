@@ -32,6 +32,8 @@ cdef extern from "imgui.h":
     ctypedef struct ImGuiListClipper
     ctypedef struct ImGuiOnceUponAFrame
     ctypedef struct ImGuiPayload
+    ctypedef struct ImGuiPlatformIO
+    ctypedef struct ImGuiPlatformMonitor
     ctypedef struct ImGuiSizeCallbackData
     ctypedef struct ImGuiStorage
     # ctypedef struct ImGuiStyle  # declared later
@@ -39,6 +41,7 @@ cdef extern from "imgui.h":
     ctypedef struct ImGuiTableColumnSortSpecs
     ctypedef struct ImGuiTextBuffer
     ctypedef struct ImGuiTextFilter
+    ctypedef struct ImGuiWindowClass
     # ctypedef struct ImGuiViewport # declared later
     
     # ====
@@ -64,6 +67,7 @@ cdef extern from "imgui.h":
     ctypedef int ImGuiColorEditFlags
     ctypedef int ImGuiConfigFlags
     ctypedef int ImGuiComboFlags
+    ctypedef int ImGuiDockNodeFlags
     ctypedef int ImGuiDragDropFlags
     ctypedef int ImGuiFocusedFlags
     ctypedef int ImGuiHoveredFlags
@@ -128,7 +132,60 @@ cdef extern from "imgui.h":
         float y
         float z
         float w
-    
+
+    cdef cppclass ImVector[T]:
+        int        Size
+        int        Capacity
+        T*         Data
+
+    cdef cppclass ImGuiStyle:
+        float       Alpha  # ✓
+        ImVec2      WindowPadding  # ✓
+        float       WindowRounding  # ✓
+        float       WindowBorderSize  # ✓
+        ImVec2      WindowMinSize  # ✓
+        ImVec2      WindowTitleAlign  # ✓
+        ImGuiDir    WindowMenuButtonPosition # ✓
+        float       ChildRounding  # ✓
+        float       ChildBorderSize  # ✓
+        float       PopupRounding  # ✓
+        float       PopupBorderSize  # ✓
+        ImVec2      FramePadding  # ✓
+        float       FrameRounding  # ✓
+        float       FrameBorderSize  # ✓
+        ImVec2      ItemSpacing  # ✓
+        ImVec2      ItemInnerSpacing  # ✓
+        ImVec2      CellPadding # ✓
+        ImVec2      TouchExtraPadding  # ✓
+        float       IndentSpacing  # ✓
+        float       ColumnsMinSpacing  # ✓
+        float       ScrollbarSize  # ✓
+        float       ScrollbarRounding  # ✓
+        float       GrabMinSize  # ✓
+        float       GrabRounding  # ✓
+        float       LogSliderDeadzone # ✓
+        float       TabRounding # ✓
+        float       TabBorderSize # ✓
+        float       TabMinWidthForCloseButton # ✓
+        ImGuiDir    ColorButtonPosition # ✓
+        ImVec2      ButtonTextAlign  # ✓
+        ImVec2      SelectableTextAlign # ✓
+        ImVec2      DisplayWindowPadding  # ✓
+        ImVec2      DisplaySafeAreaPadding  # ✓
+        float       MouseCursorScale   # ✓
+        bool        AntiAliasedLines  # ✓
+        bool        AntiAliasedLinesUseTex # ✓
+        bool        AntiAliasedFill  # ✓
+        float       CurveTessellationTol  # ✓
+        float       CircleTessellationMaxError # ✓
+
+        # note: originally Colors[ImGuiCol_COUNT]
+        # todo: find a way to access enum var here
+        ImVec4*     Colors
+        
+        void ScaleAllSizes(float scale_factor) except + # ✗
+
+
     ctypedef struct ImGuiIO:
     
         # ====
@@ -158,6 +215,17 @@ cdef extern from "imgui.h":
         #ImVec2        DisplayVisibleMin  # ✓ # DEPRECIATED
         #ImVec2        DisplayVisibleMax  # ✓ # DEPRECIATED
         
+        # Docking options
+        bool            ConfigDockingNoSplit
+        bool            ConfigDockingAlwaysTabBar
+        bool            ConfigDockingTransparentPayload
+
+        # Viewport options
+        bool        ConfigViewportsNoAutoMerge
+        bool        ConfigViewportsNoTaskBarIcon
+        bool        ConfigViewportsNoDecoration
+        bool        ConfigViewportsNoDefaultParent
+
         # Miscellaneous options
         bool          MouseDrawCursor  # ✓
         bool          ConfigMacOSXBehaviors  # ✓
@@ -173,7 +241,7 @@ cdef extern from "imgui.h":
         # Platform/Render
         const char* BackendPlatformName # ✗
         const char* BackendRendererName # ✗
-        void*       BackendPlatformUserData # ✗
+        void*       BackendPlatformUserData # ✗ 
         void*       BackendRendererUserData # ✗
         void*       BackendLanguageUserData # ✗
         
@@ -252,11 +320,59 @@ cdef extern from "imgui.h":
         ImVec2  Pos             # Read-only # ✓
         ImVec2  CurrentSize     # Read-only # ✓
         ImVec2  DesiredSize     # Read-write # ✓
+        
+
+    ctypedef struct ImGuiWindowClass:
+        ImGuiID                 ClassId
+        ImGuiID                 ParentViewportId
+        ImGuiViewportFlags      ViewportFlagsOverrideSet
+        ImGuiViewportFlags      ViewportFlagsOverrideClear
+        ImGuiTabItemFlags       TabItemFlagsOverrideSet
+        ImGuiDockNodeFlags      DockNodeFlagsOverrideSet
+        bool                    DockingAlwaysTabBar
+        bool                    DockingAllowUnclassed
+
+        ImGuiWindowClass() except +
+
+    ctypedef struct ImGuiPayload: # ✗
+        void* Data  # ✓
+        int   DataSize  # ✓
+        
+        bool IsDataType(const char* type) except + # ✗
+        bool IsPreview() except + # ✗
+        bool IsDelivery() except + # ✗
     
-    cdef cppclass ImVector[T]:
-        int        Size
-        int        Capacity
-        T*         Data
+    ctypedef struct ImGuiTableColumnSortSpecs: # ✓
+        ImGuiID ColumnUserID # ✓
+        ImS16 ColumnIndex # ✓
+        ImS16 SortOrder # ✓
+        ImGuiSortDirection SortDirection # ✓
+        
+        ImGuiTableColumnSortSpecs() except +  # ✗
+    
+    ctypedef struct ImGuiTableSortSpecs: # ✓
+        const ImGuiTableColumnSortSpecs* Specs # ✓
+        int SpecsCount # ✓
+        bool SpecsDirty # ✓
+        
+        ImGuiTableSortSpecs() except + # ✗
+
+    ctypedef struct ImGuiOnceUponAFrame:
+        ImGuiOnceUponAFrame()
+        int RefFrame
+
+    ctypedef struct ImGuiTextFilter: # X
+        #ImGui_API       ImGuiTextFilter(str default_filter)
+        bool            Draw(str label, float width)
+        bool            PassFilter(str text, str text_end)
+        void            Build()
+        void            Clear()
+        bool            isActive()
+
+    ctypedef struct ImGuiTextBuffer: # X
+        pass
+    ctypedef struct ImGuiStorage: # ✗
+        pass
         
     ctypedef struct ImGuiListClipper: # ✗
         int     DisplayStart # ✗
@@ -620,7 +736,8 @@ cdef extern from "imgui.h":
         ImVec2          DisplayPos # ✓
         ImVec2          DisplaySize # ✓
         ImVec2          FramebufferScale # ✓
-        
+        ImGuiViewport*  OwnerViewport
+
         void            DeIndexAllBuffers() except +  # ✓
         void            ScaleClipRects(const ImVec2&) except +  # ✓
 
@@ -833,92 +950,53 @@ cdef extern from "imgui.h":
         ) except +
         ImFontAtlasCustomRect* GetCustomRectByIndex(int index) except + # ✗
 
-    ctypedef struct ImGuiStorage: # ✗
-        pass
-
-    cdef cppclass ImGuiStyle:
-        float       Alpha  # ✓
-        ImVec2      WindowPadding  # ✓
-        float       WindowRounding  # ✓
-        float       WindowBorderSize  # ✓
-        ImVec2      WindowMinSize  # ✓
-        ImVec2      WindowTitleAlign  # ✓
-        ImGuiDir    WindowMenuButtonPosition # ✓
-        float       ChildRounding  # ✓
-        float       ChildBorderSize  # ✓
-        float       PopupRounding  # ✓
-        float       PopupBorderSize  # ✓
-        ImVec2      FramePadding  # ✓
-        float       FrameRounding  # ✓
-        float       FrameBorderSize  # ✓
-        ImVec2      ItemSpacing  # ✓
-        ImVec2      ItemInnerSpacing  # ✓
-        ImVec2      CellPadding # ✓
-        ImVec2      TouchExtraPadding  # ✓
-        float       IndentSpacing  # ✓
-        float       ColumnsMinSpacing  # ✓
-        float       ScrollbarSize  # ✓
-        float       ScrollbarRounding  # ✓
-        float       GrabMinSize  # ✓
-        float       GrabRounding  # ✓
-        float       LogSliderDeadzone # ✓
-        float       TabRounding # ✓
-        float       TabBorderSize # ✓
-        float       TabMinWidthForCloseButton # ✓
-        ImGuiDir    ColorButtonPosition # ✓
-        ImVec2      ButtonTextAlign  # ✓
-        ImVec2      SelectableTextAlign # ✓
-        ImVec2      DisplayWindowPadding  # ✓
-        ImVec2      DisplaySafeAreaPadding  # ✓
-        float       MouseCursorScale   # ✓
-        bool        AntiAliasedLines  # ✓
-        bool        AntiAliasedLinesUseTex # ✓
-        bool        AntiAliasedFill  # ✓
-        float       CurveTessellationTol  # ✓
-        float       CircleTessellationMaxError # ✓
-
-        # note: originally Colors[ImGuiCol_COUNT]
-        # todo: find a way to access enum var here
-        ImVec4*     Colors
-        
-        void ScaleAllSizes(float scale_factor) except + # ✗
-
-    ctypedef struct ImGuiPayload: # ✗
-        void* Data  # ✓
-        int   DataSize  # ✓
-        
-        bool IsDataType(const char* type) except + # ✗
-        bool IsPreview() except + # ✗
-        bool IsDelivery() except + # ✗
-    
-    ctypedef struct ImGuiTableColumnSortSpecs: # ✓
-        ImGuiID ColumnUserID # ✓
-        ImS16 ColumnIndex # ✓
-        ImS16 SortOrder # ✓
-        ImGuiSortDirection SortDirection # ✓
-        
-        ImGuiTableColumnSortSpecs() except +  # ✗
-    
-    ctypedef struct ImGuiTableSortSpecs: # ✓
-        const ImGuiTableColumnSortSpecs* Specs # ✓
-        int SpecsCount # ✓
-        bool SpecsDirty # ✓
-        
-        ImGuiTableSortSpecs() except + # ✗
     
     ctypedef struct ImGuiContext:
         pass
         
     ctypedef struct ImGuiViewport:  # ✓
+        ImGuiID             ID
         ImGuiViewportFlags  Flags  # ✓
         ImVec2              Pos  # ✓
         ImVec2              Size  # ✓
         ImVec2              WorkPos # ✓
         ImVec2              WorkSize # ✓
-        
+        float               DpiScale
         ImVec2 GetCenter() except + # ✓
         ImVec2 GetWorkCenter() except + # ✓
 
+    ctypedef struct ImgGuiPlatformIO:
+        void    (*Platform_CreateWindow)(ImGuiViewport* vp)                  
+        void    (*Platform_DestroyWindow)(ImGuiViewport* vp)                  
+        void    (*Platform_ShowWindow)(ImGuiViewport* vp)                    
+        void    (*Platform_SetWindowPos)(ImGuiViewport* vp, ImVec2 pos)      
+        ImVec2  (*Platform_GetWindowPos)(ImGuiViewport* vp)                  
+        void    (*Platform_SetWindowSize)(ImGuiViewport* vp, ImVec2 size)     
+        ImVec2  (*Platform_GetWindowSize)(ImGuiViewport* vp)               
+        void    (*Platform_SetWindowFocus)(ImGuiViewport* vp)                
+        bool    (*Platform_GetWindowFocus)(ImGuiViewport* vp)                 
+        bool    (*Platform_GetWindowMinimized)(ImGuiViewport* vp)             
+        void    (*Platform_SetWindowTitle)(ImGuiViewport* vp, const char* str) 
+        void    (*Platform_SetWindowAlpha)(ImGuiViewport* vp, float alpha)     
+        void    (*Platform_UpdateWindow)(ImGuiViewport* vp)                    
+        void    (*Platform_RenderWindow)(ImGuiViewport* vp, void* render_arg)  
+        void    (*Platform_SwapBuffers)(ImGuiViewport* vp, void* render_arg)  
+        float   (*Platform_GetWindowDpiScale)(ImGuiViewport* vp)            
+        void    (*Platform_OnChangedViewport)(ImGuiViewport* vp)              
+        void    (*Platform_SetImeInputPos)(ImGuiViewport* vp, ImVec2 pos)  
+        int     (*Platform_CreateVkSurface)(ImGuiViewport* vp, ImU64 vk_inst, const void* vk_allocators, ImU64* out_vk_surface)
+
+        ImVector[ImGuiPlatformMonitor] Monitors
+
+        ImVector[ImGuiViewport*] Viewports
+        ImGuiPlatformIO()
+
+    ctypedef struct ImGuiPlatformMonitor:
+        ImVec2  MainPos
+        ImVec2  MainSize
+        float   DpiScale
+        ImGuiPlatformMonitor()
+        
 cdef extern from "imgui.h" namespace "ImGui":
 
     # ====
@@ -1022,6 +1100,7 @@ cdef extern from "imgui.h" namespace "ImGui":
     ImVec2 GetWindowSize() except +  # ✓
     float GetWindowWidth() except +  # ✓
     float GetWindowHeight() except +  # ✓
+    ImGuiViewport* GetWindowViewport() except +
     
     void SetNextWindowPos(  # ✓ note: overrides ommited
             const ImVec2& pos,
@@ -1049,6 +1128,7 @@ cdef extern from "imgui.h" namespace "ImGui":
     ) except +
     void SetNextWindowFocus() except +  # ✓
     void SetNextWindowBgAlpha(float alpha) except +  # ✓
+    void SetNextWindowViewport(ImGuiID viewport_id) except +
     void SetWindowPos(  # ✓
             const ImVec2& pos,
             # note: optional
@@ -1081,12 +1161,11 @@ cdef extern from "imgui.h" namespace "ImGui":
             ImGuiCond cond              # = 0
     ) except +
     void SetWindowFocus(const char* name) except +  # ✓
-    
+    void SetWindowFontScale(float scale) except +
     # ====
     # Content region
     ImVec2 GetContentRegionAvail() except +  # ✓
     ImVec2 GetContentRegionMax() except +  # ✓
-    float GetContentRegionAvailWidth() except +  # ✓ # OBSOLETED in 1.70 (from May 2019)
     ImVec2 GetWindowContentRegionMin() except +  # ✓
     ImVec2 GetWindowContentRegionMax() except +  # ✓
     float GetWindowContentRegionWidth() except +  # ✓
@@ -2014,6 +2093,26 @@ cdef extern from "imgui.h" namespace "ImGui":
     ) except +
     void SetTabItemClosed(const char* tab_or_docked_window_label) except + # ✓
     
+    # DOCKSPACE
+    ImGuiID DockSpace(
+            ImGuiID id, 
+            const ImVec2& size, 
+            ImGuiDockNodeFlags flags,
+            const ImGuiWindowClass* window_class
+    ) except +
+    ImGuiID DockSpaceOverViewport(
+             const ImGuiViewport* viewport, 
+             ImGuiDockNodeFlags flags,
+             const ImGuiWindowClass* window_class
+     ) except +
+    void SetNextWindowDockID(
+             ImGuiID dock_id, 
+             ImGuiCond cond
+     ) except +
+    void SetNextWindowClass(const ImGuiWindowClass* window_class) except +
+    ImGuiID GetWindowDockID() except +
+    bool IsWindowDocked() except +
+
     # ====
     # Logging/Capture
     # Logging: all text output from interface is redirected to
@@ -2238,5 +2337,13 @@ cdef extern from "imgui.h" namespace "ImGui":
     ) except +
     void* MemAlloc(size_t size) except + # ✗
     void MemFree(void* ptr) except + # ✗
+
+    # Multi-viewport
+    ImGuiPlatformIO& GetPlatformIO()
+    void UpdatePlatformWindows()
+    void RenderPlatformWindowsDefault()
+    void DestroyPlatformWindows()
+    ImGuiViewport* FindViewportByID(ImGuiID id)
+    ImGuiViewport* FindViewportByPlatformHandle(void* platform_handle)
 
     
