@@ -42,8 +42,8 @@ def main():
                 imgui.extra.text_ansi_colored("Eggs", 0.2, 1., 0.)
             imgui.end()
 
-        show_test_window()
-        #imgui.show_test_window()
+        # show_test_window()
+        imgui.show_test_window()
 
         gl.glClearColor(1., 1., 1., 1)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)

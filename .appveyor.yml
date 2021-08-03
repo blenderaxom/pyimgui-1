@@ -5,6 +5,11 @@ environment:
 
   matrix:
     # win builds
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_ARCH: 64
+      MSVC_VERSION: "Visual Studio 14 Win64"
+      job_group: "windows"
+      
     - PYTHON: "C:\\Python27"
       PYTHON_ARCH: 32
       MSVC_VERSION: "Visual Studio 10"
@@ -71,11 +76,6 @@ environment:
       job_group: "windows"
 
     - PYTHON: "C:\\Python36-x64"
-      PYTHON_ARCH: 64
-      MSVC_VERSION: "Visual Studio 14 Win64"
-      job_group: "windows"
-
-    - PYTHON: "C:\\Python37-x64"
       PYTHON_ARCH: 64
       MSVC_VERSION: "Visual Studio 14 Win64"
       job_group: "windows"
