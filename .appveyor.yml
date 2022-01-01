@@ -295,10 +295,10 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: macos-mojave
       APPVEYOR_JOB_NAME: "python37-x64-macos-mojave"
 
-stack: python 3.7
+stack: python 3.9
 
 init:
-- cmd: set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
+- cmd: set PATH=C:\Python39;C:\Python37\Scripts;%PATH%
 
 install:  |
   python --version
