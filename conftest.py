@@ -9,8 +9,6 @@ from inspect import currentframe, getframeinfo
 from _pytest.outcomes import Skipped
 from sphinx.application import Sphinx
 
-import imgui
-
 PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sphinx = None
 
