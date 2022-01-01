@@ -15,6 +15,19 @@ PROJECT_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sphinx = None
 
 
+if 'FROM_APPVEYOR' in os.environ:
+    # We need to trick the import mechanism in order to load the
+    # builded wheel instead of the local src directory
+    init_file_path = os.path.join(PROJECT_ROOT_DIR, 'imgui','__init__.py')
+    init_file_path_tmp = os.path.join(PROJECT_ROOT_DIR, 'imgui','__init__TMP.py')
+    os.rename(init_file_path, init_file_path_tmp)
+    import imgui
+    os.rename(init_file_path_tmp, init_file_path)
+else:
+    import imgui
+
+
+
 def project_path(*paths):
     return os.path.join(PROJECT_ROOT_DIR, *paths)
 
