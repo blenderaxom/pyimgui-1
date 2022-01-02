@@ -1,7 +1,7 @@
 [![completion](https://img.shields.io/badge/completion-70%25%20%28518%20of%20735%29-blue.svg)](https://github.com/pyimgui/pyimgui)
 [![Coverage Status](https://coveralls.io/repos/github/pyimgui/pyimgui/badge.svg?branch=master)](https://coveralls.io/github/blenderaxom/pyimgui-1?branch=bimgui)
 [![Documentation Status](https://readthedocs.org/projects/pyimgui/badge/?version=latest)](https://pyimgui.readthedocs.io/en/latest/?badge=latest)
-[![Build status](https://ci.appveyor.com/api/projects/status/mr97t941p6k4c261/branch/dev/version-2.0?svg=true)](https://ci.appveyor.com/project/blenderaxom/pyimgui-1/branch/bimgui)
+[![Build status](https://ci.appveyor.com/api/projects/status/g5jl673a67ilcbux/branch/bimgui?svg=true)](https://ci.appveyor.com/project/blenderaxom/pyimgui-1/branch/bimgui)
 
 # pyimgui
 
